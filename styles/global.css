@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inika:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ant-menu-item {
+   @apply bg-inherit active:font-bold
+}
+
+.ant-input{
+    @apply font-default !important
+}
+
+table {
+    @apply font-default 
+}
+
+.ant-btn-primary{
+    @apply font-default bg-light-blue
+}
+
+.ant-btn{
+    @apply font-default
+}
+
+.ant-table-row:first-child{
+    @apply ps-4 !important
+}
+
+.ant-select-item-option {
+    @apply font-default text-lg
+}
+
+.ant-card-body {
+    @apply py-3 w-full !important
+}
+
+.ant-statistic-content {
+    @apply flex
+}
+
+.ant-statistic-content-prefix {
+    @apply flex items-center !important
+}
+
+.ant-statistic-content-prefix svg{
+    @apply align-middle inline-block !important
+}
+
+.ant-tabs-tab {
+    @apply font-default text-sm !important
+}
