@@ -7,6 +7,7 @@ const initialState = {
     token: null,
     isStudent: false,
     isCompany: false,
+    avatarUrl: null,
   },
 };
 
@@ -20,7 +21,7 @@ export const auth = createSlice({
     },
 
     logIn: (state, action) => {
-      const { token, userId, expirationTime, isStudent, isCompany } =
+      const { token, userId, expirationTime, isStudent, isCompany, avatarUrl } =
         action.payload;
       localStorage.removeItem("authData");
       localStorage.setItem(
@@ -31,6 +32,7 @@ export const auth = createSlice({
           expirationTime,
           isStudent,
           isCompany,
+          avatarUrl,
         })
       );
       return {
@@ -40,6 +42,7 @@ export const auth = createSlice({
           token,
           isStudent,
           isCompany,
+          avatarUrl,
         },
       };
     },

@@ -12,3 +12,5 @@ export const useIsCoordinator = () =>
   useAppSelector((state) => state.authReducer.values.isStudent);
 export const useIsAssistant = () =>
   useAppSelector((state) => state.authReducer.values.isCompany);
+export const useAvatarUrl = () =>
+  useAppSelector((state) => state.authReducer.values.avatarUrl);

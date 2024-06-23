@@ -5,9 +5,9 @@ import { logIn, logOut } from "@/app/redux/features/auth-slice";
 
 export const useLogIn = () => {
   const dispatch = useDispatch();
-  return (token, userId, expirationTime, isCoordinator, isAssitant) => {
+  return (token, userId, expirationTime, isStudent, isCompany, avatarUrl) => {
     dispatch(
-      logIn({ token, userId, expirationTime, isCoordinator, isAssitant })
+      logIn({ token, userId, expirationTime, isStudent, isCompany, avatarUrl })
     );
   };
 };

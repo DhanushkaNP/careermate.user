@@ -22,6 +22,10 @@ module.exports = {
         green: "#3f8600",
         red: "#cf1322",
       },
+      backgroundImage: {
+        "study-image": "url('/study2.png')",
+        "company-image": "url('/public/company.png')",
+      },
     },
   },
   plugins: [],

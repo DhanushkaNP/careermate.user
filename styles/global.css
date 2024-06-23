@@ -17,15 +17,15 @@ table {
     @apply font-default 
 }
 
-.ant-btn-primary{
+.ant-btn-primary {
     @apply font-default bg-light-blue
 }
 
-.ant-btn{
+.ant-btn {
     @apply font-default
 }
 
-.ant-table-row:first-child{
+.ant-table-row:first-child {
     @apply ps-4 !important
 }
 

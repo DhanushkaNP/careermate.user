@@ -3,7 +3,6 @@ const { ErrorCodes } = require("@/shared/errorCodes");
 // pass the response that get from error #error.response
 export const getErrorMessage = (error) => {
   console.log(error);
-  logError(error.response.data.message, error.response.data.additionalData);
   if (error.response.status >= 400 && error.response.status < 500) {
     switch (error.response.data.errorCode) {
       case ErrorCodes.LogginUserDetailsIncorrect:
@@ -26,13 +25,19 @@ export const getErrorMessage = (error) => {
           message: "Incorrect CSV format.",
         };
 
+      case ErrorCodes.InvalidStudentCreateData:
+        return {
+          message:
+            "Invalid student data. Valid email and student Id should be provided",
+        };
+
       default:
         return {
           message: error.response.data.message,
         };
     }
   } else {
-    console.error(error.response.data.message || error.response.message);
+    logError(error.response.data.message, error.response.data.additionalData);
   }
 };
 
