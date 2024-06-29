@@ -24,7 +24,7 @@ module.exports = {
       },
       backgroundImage: {
         "study-image": "url('/study2.png')",
-        "company-image": "url('/public/company.png')",
+        "company-image": "url('/company2.png')",
       },
     },
   },

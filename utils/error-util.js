@@ -4,7 +4,7 @@ const { ErrorCodes } = require("@/shared/errorCodes");
 export const getErrorMessage = (error) => {
   console.log(error);
   if (error.response.status >= 400 && error.response.status < 500) {
-    switch (error.response.data.errorCode) {
+    switch (error.response.data.ErrorCode) {
       case ErrorCodes.LogginUserDetailsIncorrect:
         return {
           message: "One or more user details incorrect.",

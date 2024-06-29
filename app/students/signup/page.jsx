@@ -270,17 +270,7 @@ const StudentSignIn = () => {
   };
 
   return (
-    <div className="h-full flex items-center">
-      <div className="ms-64 me-32">
-        <h1 className="bg-white w-min font-inika text-5xl font-bold text-dark-blue p-2 opacity-90">
-          CareerMate
-        </h1>
-        <p className="bg-white w-[480px] text-lg p-2 font-semibold opacity-90">
-          Careermate helps you to find the best industry opportunity, it eases
-          your life works!
-        </p>
-      </div>
-
+    <>
       {step === 1 && (
         <FormContainer className={"w-full"}>
           <Form
@@ -451,14 +441,7 @@ const StudentSignIn = () => {
 
             <div className="flex justify-between">
               <div>
-                <Button>
-                  <Link
-                    href={"test"}
-                    className="text-center w-full text-dark-blue block"
-                  >
-                    Sign In
-                  </Link>
-                </Button>
+                <Button onClick={() => router.push("signin")}>Sign In</Button>
               </div>
 
               <Button type="primary" htmlType="submit">
@@ -471,7 +454,7 @@ const StudentSignIn = () => {
               </Divider>
 
               <Link
-                href={"test"}
+                href={"/companies/signup"}
                 className="text-center w-full font-semibold text-dark-blue block"
               >
                 Sign up as a company
@@ -731,7 +714,7 @@ const StudentSignIn = () => {
           </Form>
         </FormContainer>
       )}
-    </div>
+    </>
   );
 };
 
