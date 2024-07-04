@@ -10,7 +10,7 @@ const RootPage = () => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      router.push("students/signup");
+      router.push("/auth/students/signup");
       return;
     }
   });

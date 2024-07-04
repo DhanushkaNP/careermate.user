@@ -257,7 +257,7 @@ const StudentSignIn = () => {
               response.profilePicUrl
             );
             message.success("Sign up successful!");
-            router.push("/internships");
+            router.push("/students/internships");
           });
       } catch (error) {
         console.log(error);
@@ -454,7 +454,7 @@ const StudentSignIn = () => {
               </Divider>
 
               <Link
-                href={"/companies/signup"}
+                href={"/auth/companies/signup"}
                 className="text-center w-full font-semibold text-dark-blue block"
               >
                 Sign up as a company

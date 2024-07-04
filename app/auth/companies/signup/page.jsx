@@ -175,7 +175,7 @@ const CompanySignUp = () => {
             setCompanyData(response.universityId, response.facultyId);
 
             message.success("Sign up successful!");
-            router.push("/internships");
+            router.push("/companies/internships");
           });
       } catch (error) {
         const errorMessage = getErrorMessage(error);
@@ -365,7 +365,7 @@ const CompanySignUp = () => {
                 or
               </Divider>
               <Link
-                href={"/students/signup"}
+                href={"/auth/students/signup"}
                 className="text-center w-full font-semibold text-dark-blue block"
               >
                 Sign up as a Student

@@ -105,7 +105,7 @@ const CompanySignIn = () => {
             );
 
             message.success("Sign up successful!");
-            router.push("/internships");
+            router.push("/companies/internships");
           });
       } catch (error) {
         const errorMessage = getErrorMessage(error);
@@ -295,7 +295,7 @@ const CompanySignIn = () => {
             Sign Up
           </Link>
           <Link
-            href={"/companies/signup"}
+            href={"/auth/companies/signup"}
             className="text-right w-full font-semibold text-dark-blue block"
           >
             Sign up as a company
