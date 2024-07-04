@@ -257,7 +257,7 @@ const StudentSignIn = () => {
               response.profilePicUrl
             );
             message.success("Sign up successful!");
-            if (isAuthenticated) router.push("/internships");
+            router.push("/internships");
           });
       } catch (error) {
         console.log(error);
@@ -702,6 +702,9 @@ const StudentSignIn = () => {
             )}
 
             <div className="flex justify-between">
+              <Button className="mb-2" onClick={() => setStep(1)}>
+                Back
+              </Button>
               <Button
                 type="primary"
                 htmlType="submit"

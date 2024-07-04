@@ -6,6 +6,8 @@ import NumericInput from "@/Components/Forms/NumericInput";
 import { useLogIn } from "@/utils/Auth/auth-actions";
 import { decodeToken } from "@/utils/Auth/auth-util";
 import api from "@/utils/api";
+import { useSetCompanyData } from "@/utils/company/student-actions";
+import { getErrorMessage } from "@/utils/error-util";
 import {
   Form,
   Input,
@@ -25,7 +27,7 @@ import React, { useState } from "react";
 import { IoArrowForwardCircle } from "react-icons/io5";
 
 const CompanySignUp = () => {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const [form1] = Form.useForm();
   const [form2] = Form.useForm();
 
@@ -47,6 +49,7 @@ const CompanySignUp = () => {
   const router = useRouter();
 
   const logIn = useLogIn();
+  const setCompanyData = useSetCompanyData();
 
   const onNext = (values) => {
     setFormData({ ...formData, ...values });
@@ -143,12 +146,12 @@ const CompanySignUp = () => {
     form2.validateFields().then(async (values) => {
       const completeFormData = { ...formData, ...values };
 
+      console.log(completeFormData);
       try {
         await api
-          .post("api/Students/Login", {
+          .post(`Faculties/${selectedFaculty}/Company`, {
             name: completeFormData.name,
             universityId: completeFormData.university,
-            facultyId: completeFormData.faculty,
             email: completeFormData.email,
             password: completeFormData.password,
             phoneNumber: completeFormData.phone,
@@ -163,16 +166,21 @@ const CompanySignUp = () => {
               response.token,
               response.userId,
               decodedToken.exp,
-              true,
               false,
+              true,
               null,
               response.CompanyLogoUrl
             );
 
+            setCompanyData(response.universityId, response.facultyId);
+
             message.success("Sign up successful!");
             router.push("/internships");
           });
-      } catch (error) {}
+      } catch (error) {
+        const errorMessage = getErrorMessage(error);
+        setError(errorMessage.message);
+      }
     });
   };
 
@@ -516,14 +524,18 @@ const CompanySignUp = () => {
               />
             )}
 
-            <Button
-              type="primary"
-              htmlType="submit"
-              block
-              className="mb-2 font-semibold"
-            >
-              Sign Up
-            </Button>
+            <div className="flex justify-between">
+              <Button className="mb-2" onClick={() => setStep(1)}>
+                Back
+              </Button>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="mb-2 font-semibold"
+              >
+                Sign Up
+              </Button>
+            </div>
           </Form>
         </FormContainer>
       )}

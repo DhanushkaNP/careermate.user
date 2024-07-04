@@ -33,7 +33,7 @@ export const getErrorMessage = (error) => {
 
       default:
         return {
-          message: error.response.data.message,
+          message: error.response.data.Message,
         };
     }
   } else {
