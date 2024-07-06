@@ -244,7 +244,8 @@ const StudentSignIn = () => {
               response.facultyId,
               response.batchId,
               response.degreeId,
-              response.pathwayId
+              response.pathwayId,
+              `${response.firstName} ${response.lastName}`
             );
 
             login(

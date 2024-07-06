@@ -16,3 +16,6 @@ export const useDegreeId = () =>
 
 export const usePathwayId = () =>
   useAppSelector((state) => state.studentReducer.values.pathwayId);
+
+export const useStudentFullName = () =>
+  useAppSelector((state) => state.studentReducer.values.fullName);

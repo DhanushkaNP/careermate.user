@@ -7,6 +7,7 @@ const initialState = {
     batchId: null,
     degreeId: null,
     pathwayId: null,
+    fullName: null,
   },
 };
 
@@ -20,8 +21,14 @@ export const auth = createSlice({
     },
 
     setStudentData: (state, action) => {
-      const { universityId, facultyId, batchId, degreeId, pathwayId } =
-        action.payload;
+      const {
+        universityId,
+        facultyId,
+        batchId,
+        degreeId,
+        pathwayId,
+        fullName,
+      } = action.payload;
       localStorage.removeItem("studentData");
       localStorage.setItem(
         "studentData",
@@ -31,6 +38,7 @@ export const auth = createSlice({
           batchId,
           degreeId,
           pathwayId,
+          fullName,
         })
       );
       return {
@@ -40,6 +48,7 @@ export const auth = createSlice({
           batchId,
           degreeId,
           pathwayId,
+          fullName,
         },
       };
     },

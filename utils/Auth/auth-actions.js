@@ -1,7 +1,7 @@
 "use client";
 // auth-actions.js
 import { useDispatch } from "react-redux";
-import { logIn, logOut } from "@/app/redux/features/auth-slice";
+import { logIn, logOut, setLoading } from "@/app/redux/features/auth-slice";
 
 export const useLogIn = () => {
   const dispatch = useDispatch();
@@ -15,4 +15,9 @@ export const useLogIn = () => {
 export const useLogout = () => {
   const dispatch = useDispatch();
   return () => dispatch(logOut());
+};
+
+export const useSetLoading = () => {
+  const dispatch = useDispatch();
+  return (loading) => dispatch(setLoading({ loading }));
 };

@@ -11,6 +11,14 @@ const axiosInstance = axios.create({
   },
 });
 
+const formatFilters = (filters) => {
+  let filterParams = {};
+  for (let key in filters) {
+    filterParams[`Filter[${key}]`] = filters[key];
+  }
+  return filterParams;
+};
+
 const api = {
   get: async (url, params = null, token = null) => {
     console.log(url);
@@ -51,3 +59,4 @@ const api = {
 };
 
 export default api;
+export { formatFilters };

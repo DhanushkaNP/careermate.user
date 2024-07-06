@@ -8,9 +8,11 @@ export const useUserToken = () =>
   useAppSelector((state) => state.authReducer.values.token);
 export const useIsAuth = () =>
   useAppSelector((state) => state.authReducer.values.isAuth);
-export const useIsCoordinator = () =>
+export const useIsStudent = () =>
   useAppSelector((state) => state.authReducer.values.isStudent);
-export const useIsAssistant = () =>
+export const useIsCompany = () =>
   useAppSelector((state) => state.authReducer.values.isCompany);
 export const useAvatarUrl = () =>
   useAppSelector((state) => state.authReducer.values.avatarUrl);
+export const useIsLoading = () =>
+  useAppSelector((state) => state.authReducer.values.isLoading);

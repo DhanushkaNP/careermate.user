@@ -8,9 +8,16 @@ import { useDispatch } from "react-redux";
 
 export const useSetStudentData = () => {
   const dispatch = useDispatch();
-  return (universityId, facultyId, batchId, degreeId, pathwayId) => {
+  return (universityId, facultyId, batchId, degreeId, pathwayId, fullName) => {
     dispatch(
-      setStudentData({ universityId, facultyId, batchId, degreeId, pathwayId })
+      setStudentData({
+        universityId,
+        facultyId,
+        batchId,
+        degreeId,
+        pathwayId,
+        fullName,
+      })
     );
   };
 };

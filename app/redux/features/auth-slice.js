@@ -8,6 +8,7 @@ const initialState = {
     isStudent: false,
     isCompany: false,
     avatarUrl: null,
+    isLoading: true,
   },
 };
 
@@ -17,6 +18,8 @@ export const auth = createSlice({
   reducers: {
     logOut: () => {
       localStorage.removeItem("authData");
+      localStorage.removeItem("studentData");
+      localStorage.removeItem("companyData");
       return initialState;
     },
 
@@ -43,11 +46,16 @@ export const auth = createSlice({
           isStudent,
           isCompany,
           avatarUrl,
+          isLoading: false,
         },
       };
+    },
+
+    setLoading: (state, action) => {
+      state.values.isLoading = action.payload.loading;
     },
   },
 });
 
-export const { logIn, logOut } = auth.actions;
+export const { logIn, logOut, setLoading } = auth.actions;
 export default auth.reducer;
