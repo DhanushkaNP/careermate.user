@@ -96,7 +96,6 @@ const CompanySignUp = () => {
   const onSelectFaculty = async (value, option) => {
     setSelectedFaculty(value);
     setFacultySearchTerm(option.children);
-    console.log(value, option);
 
     await api.get(`Faculty/${value}/Industries`).then((response) => {
       setIndustries(response.items);
@@ -146,7 +145,6 @@ const CompanySignUp = () => {
     form2.validateFields().then(async (values) => {
       const completeFormData = { ...formData, ...values };
 
-      console.log(completeFormData);
       try {
         await api
           .post(`Faculties/${selectedFaculty}/Company`, {

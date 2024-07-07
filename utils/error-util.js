@@ -2,7 +2,6 @@ const { ErrorCodes } = require("@/shared/errorCodes");
 
 // pass the response that get from error #error.response
 export const getErrorMessage = (error) => {
-  console.log(error);
   if (error.response.status >= 400 && error.response.status < 500) {
     switch (error.response.data.ErrorCode) {
       case ErrorCodes.LogginUserDetailsIncorrect:

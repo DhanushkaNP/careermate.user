@@ -82,7 +82,7 @@ const Internships = () => {
   const fetchPosts = async (page = 1, pageSize = 10) => {
     let offset = (page - 1) * pageSize;
 
-    let filters = {};
+    let filters = { status: "approved" };
     if (selectedIndustry) filters = { ...filters, industry: selectedIndustry };
     if (selectedCompany) filters = { ...filters, company: selectedCompany };
     if (selectedWorkPlaceType)
@@ -102,7 +102,6 @@ const Internships = () => {
         token
       );
       setPosts(response.items);
-      console.log(response.items);
       setPagination((prev) => ({
         ...prev,
         total: response.meta.count,
@@ -119,7 +118,7 @@ const Internships = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen ">
       <h2 className=" text-4xl font-bold text-dark-blue">
         Find your dream <span className=" text-light-blue">internship</span>{" "}
         today
@@ -251,6 +250,7 @@ const Internships = () => {
             type={ip.type}
             title={ip.title}
             description={ip.description}
+            postUrl={"internships/"}
           />
         ))}
       </div>

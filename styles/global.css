@@ -73,3 +73,23 @@ table {
 .ant-menu-item:first-child::after {
   @apply border-b-0 !important;
 }
+
+.internship-description ul {
+  @apply list-disc mx-8;
+}
+
+.internship-description ol {
+  @apply list-decimal mx-8;
+}
+
+/* styles/RichTextEditor.css */
+.custom-quill-editor {
+  font-family: "Montserrat", sans-serif; /* Set your desired font */
+}
+
+.custom-quill-editor .ql-editor {
+  height: 100%;
+  overflow-y: auto;
+  font-family: "Montserrat", sans-serif; /* Ensure font applies to the editor content */
+  @apply text-base;
+}

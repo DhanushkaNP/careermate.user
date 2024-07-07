@@ -48,20 +48,10 @@ const AuthInitializer = ({ children }) => {
           removeStudentData();
           logOut();
         } else {
-          console.log(
-            "login data",
-            expirationTime,
-            token,
-            userId,
-            isStudent,
-            isCompany,
-            avatarUrl
-          );
           logIn(token, userId, expirationTime, isStudent, isCompany, avatarUrl);
         }
 
         if (storedStudentData) {
-          console.log("stored student", storedStudentData);
           const {
             universityId,
             facultyId,

@@ -52,9 +52,7 @@ const StudentSignIn = () => {
             router.push("/students/internships");
           });
       } catch (error) {
-        console.error(error);
         const errorMessage = getErrorMessage(error);
-        console.log(errorMessage);
         SetError(errorMessage.message);
         return;
       }

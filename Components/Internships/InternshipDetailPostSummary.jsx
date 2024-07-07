@@ -3,27 +3,47 @@ import processText from "@/utils/richTextParser";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar } from "antd";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import PostStats from "./PostStats";
+import PostStatus from "./PostStatus";
 
 const InternshipDetailPostSummary = ({
   id,
   companylogo,
   companyName,
-  numberOfApplicants,
-  numberOfJobs,
   location,
   type,
   title,
   description,
+  isApproved,
+  postUrl,
+  numberOfApplicants = 0,
+  numberOfJobs = 1,
 }) => {
   const router = useRouter();
+  const [postStatusColor, setPostStatusColor] = useState("blue");
+  const [postStatusName, setPostStatusName] = useState("Waiting");
+
+  useEffect(() => {
+    if (isApproved == undefined) return;
+    switch (isApproved) {
+      case false:
+        setPostStatusName("Waiting");
+        setPostStatusColor("blue");
+        break;
+      case true:
+        setPostStatusName("Approved");
+        setPostStatusColor("green");
+        break;
+    }
+  }, [isApproved]);
 
   return (
     <div
       className="mt-2 hover:bg-default-background hover:cursor-pointer"
-      onClick={() => router.push(`internships/${id}`)}
+      onClick={() => router.push(`${postUrl}${id}`)}
     >
-      <div className=" w-full bg-white hover:bg-default-background shadow-sm border rounded-md p-4">
+      <div className=" w-full bg-white hover:bg-default-background shadow-sm border rounded-xl p-4">
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
             <Avatar
@@ -37,12 +57,16 @@ const InternshipDetailPostSummary = ({
 
           <div className=" text-sm">
             <div className="flex gap-2 text-xs">
-              <div className=" text-light-blue bg-opacity-light-blue px-2 py-0.5 rounded-lg font-semibold">
-                {numberOfApplicants} Applicants
-              </div>
-              <div className=" text-light-blue bg-opacity-light-blue px-2 py-0.5 rounded-lg font-semibold">
-                {numberOfJobs} Jobs
-              </div>
+              {isApproved != null && (
+                <div className="text-base flex gap-2 mb-1">
+                  <span>Status: </span>
+                  <PostStatus name={postStatusName} color={postStatusColor} />
+                </div>
+              )}
+
+              <PostStats stat={numberOfApplicants} name={"Applicants"} />
+
+              {numberOfJobs && <PostStats stat={numberOfJobs} name={"Jobs"} />}
             </div>
 
             <p>Location: {location}</p>

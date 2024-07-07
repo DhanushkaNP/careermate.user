@@ -21,7 +21,6 @@ const formatFilters = (filters) => {
 
 const api = {
   get: async (url, params = null, token = null) => {
-    console.log(url);
     const config = token
       ? { headers: { Authorization: `Bearer ${token}` } }
       : {};
@@ -29,13 +28,10 @@ const api = {
     return response.data;
   },
   post: async (url, data, token = null, headers = null) => {
-    console.log(`test ${url} ${JSON.stringify(data)} ${token}`);
     const config = token
       ? { headers: { Authorization: `Bearer ${token}`, ...headers } }
       : {};
-    console.log(config);
     const response = await axiosInstance.post(url, data, config);
-    console.log(response);
     return response.data;
   },
   put: async (url, data, token = null) => {

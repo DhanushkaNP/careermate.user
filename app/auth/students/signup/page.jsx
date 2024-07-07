@@ -110,7 +110,6 @@ const StudentSignIn = () => {
           }
         );
         setBatches(response.items);
-        console.log(response.items);
       } catch (error) {
         console.error("Failed to fetch student batches:", error);
         setBatches([]);
@@ -219,8 +218,6 @@ const StudentSignIn = () => {
   const handleSignUp = async () => {
     form2.validateFields().then(async (values) => {
       const completeFormData = { ...formData, ...values };
-      console.log(completeFormData);
-
       try {
         await api
           .post("Students", {
@@ -236,7 +233,6 @@ const StudentSignIn = () => {
             pathwayId: completeFormData.pathway,
           })
           .then((response) => {
-            console.log(response);
             const decodedToken = decodeToken(response.token);
 
             setStudentData(
@@ -261,9 +257,7 @@ const StudentSignIn = () => {
             router.push("/students/internships");
           });
       } catch (error) {
-        console.log(error);
         const errorMessage = getErrorMessage(error);
-        console.log(errorMessage);
         setStudentCreateError(errorMessage.message);
         return;
       }
@@ -547,7 +541,6 @@ const StudentSignIn = () => {
                 disabled={!selectedUniversity}
                 onSelect={(value, option) => {
                   setSelectedFaculty(value);
-                  console.log(value);
                   setFacultySearchTerm(option.children);
                 }}
                 onClear={() => {
@@ -589,7 +582,6 @@ const StudentSignIn = () => {
                 disabled={!selectedFaculty || !selectedUniversity}
                 onSelect={(value, option) => {
                   setSelectedBatch(value);
-                  console.log(value);
                   setBatchSearchTerm(option.children);
                 }}
                 onClear={() => {
