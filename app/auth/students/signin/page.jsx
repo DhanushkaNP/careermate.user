@@ -163,10 +163,10 @@ const StudentSignIn = () => {
             Sign Up
           </Link>
           <Link
-            href={"/auth/companies/signup"}
+            href={"/auth/companies/signin"}
             className="text-right w-full font-semibold text-dark-blue block"
           >
-            Sign up as a company
+            Sign in as a company
           </Link>
         </div>
       </Form>

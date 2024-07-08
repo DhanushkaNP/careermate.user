@@ -295,10 +295,10 @@ const CompanySignIn = () => {
             Sign Up
           </Link>
           <Link
-            href={"/auth/companies/signup"}
+            href={"/auth/students/signin"}
             className="text-right w-full font-semibold text-dark-blue block"
           >
-            Sign up as a company
+            Sign in as a student
           </Link>
         </div>
       </Form>
