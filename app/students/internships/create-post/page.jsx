@@ -32,7 +32,6 @@ const CreateInternshipPost = () => {
   };
 
   const handleCompanySearch = async (value) => {
-    console.log("handleCompanySearch", value);
     setCompanySearchTerm(value);
     if (value) {
       try {

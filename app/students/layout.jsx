@@ -17,6 +17,27 @@ import { useStudentFullName } from "@/utils/student/student-selectors";
 import { UserOutlined } from "@ant-design/icons";
 import { useLogout } from "@/utils/Auth/auth-actions";
 
+const mapPathToKey = (path) => {
+  switch (path) {
+    case "/students/internships":
+      return "1.1";
+    case "/students/internships/create-post":
+      return "1.2";
+    case "/test2":
+      return "1.3";
+    case "/test3":
+      return "1.4";
+    case "/companies":
+      return "2";
+    case "/internships5":
+      return "3";
+    case "/profile":
+      return "4.1";
+    default:
+      return "1.1";
+  }
+};
+
 const StudentLayout = ({ children }) => {
   const router = useRouter();
   const isLoading = useIsLoading();
@@ -26,7 +47,12 @@ const StudentLayout = ({ children }) => {
   const studentAvatar = useAvatarUrl();
   const signout = useLogout();
 
-  const [currentKey, setCurrentKey] = useState([]);
+  const [currentKey, setCurrentKey] = useState(() => {
+    if (typeof window !== "undefined") {
+      return [mapPathToKey(window.location.pathname)];
+    }
+    return ["1.1"]; // Default value for server render
+  });
 
   useEffect(() => {
     const pathKey = mapPathToKey(window.location.pathname);
@@ -44,27 +70,6 @@ const StudentLayout = ({ children }) => {
       router.push("/auth/students/signin");
     }
   }, [isAuth, isStudent, isLoading, router]);
-
-  const mapPathToKey = (path) => {
-    switch (path) {
-      case "/students/internships":
-        return "1.1";
-      case "/students/internships/create-post":
-        return "1.2";
-      case "/test2":
-        return "1.3";
-      case "/test3":
-        return "1.4";
-      case "/companies":
-        return "2";
-      case "/internships5":
-        return "3";
-      case "/profile":
-        return "4.1";
-      default:
-        return "1.1";
-    }
-  };
 
   return (
     <div>
@@ -136,7 +141,7 @@ const StudentLayout = ({ children }) => {
             />
           }
         >
-          <Link href="/companies">Find Companies</Link>
+          <Link href="/students/companies">Find Companies</Link>
         </Menu.Item>
         <Menu.Item
           key="3"
@@ -174,7 +179,7 @@ const StudentLayout = ({ children }) => {
             key="4.2"
             onClick={() => {
               signout();
-              router.refresh();
+              router.push("/auth/students/signin");
             }}
           >
             <h5 className="font-default">Signout</h5>

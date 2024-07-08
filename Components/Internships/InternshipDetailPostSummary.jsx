@@ -25,7 +25,7 @@ const InternshipDetailPostSummary = ({
   const [postStatusName, setPostStatusName] = useState("Waiting");
 
   useEffect(() => {
-    if (isApproved == undefined) return;
+    if (isApproved == null) return;
     switch (isApproved) {
       case false:
         setPostStatusName("Waiting");

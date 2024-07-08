@@ -241,6 +241,7 @@ const Internships = () => {
       <div className="mt-4">
         {posts.map((ip) => (
           <InternshipDetailPostSummary
+            key={ip.id}
             id={ip.id}
             companyName={ip.companyName}
             companylogo={ip.companyLogoUrl}
