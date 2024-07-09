@@ -93,3 +93,15 @@ table {
   font-family: "Montserrat", sans-serif; /* Ensure font applies to the editor content */
   @apply text-base;
 }
+
+.custom-placeholder .ant-select-selection-placeholder {
+  @apply font-default text-black text-sm;
+}
+
+.custom-select .ant-select-selection-item {
+  @apply text-sm; /* Change the font size */
+}
+
+.ant-avatar-image img {
+  @apply object-center object-cover !important;
+}

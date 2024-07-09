@@ -142,7 +142,6 @@ const Internships = () => {
             className="font-default bg-default-background w-52"
             placeholder="Industry"
             onSelect={(value) => setSelectedIndustry(value)}
-            maxCount={5}
             allowClear
             onClear={() => setSelectedIndustry(null)}
           >
@@ -177,7 +176,6 @@ const Internships = () => {
               setCompanySearchTerm(option.children.name);
               setSelectedCompany(value);
             }}
-            maxCount={5}
             allowClear
             onClear={() => {
               setSelectedCompany(null);

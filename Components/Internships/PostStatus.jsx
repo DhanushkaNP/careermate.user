@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-const PostStatus = ({ name, color }) => {
+const StatusIndicator = ({ name, color }) => {
   const [borderColor, setBorderColor] = useState("!border-light-blue");
   const [nameColor, setNameColor] = useState("!text-light-blue");
 
@@ -23,9 +23,9 @@ const PostStatus = ({ name, color }) => {
     <div
       className={`border-2 rounded-2xl text-center w-fit px-2 py-0 ${borderColor}`}
     >
-      <span className={`font-semibold text-sm ${nameColor}`}>{name}</span>
+      <span className={`font-semibold !text-sm ${nameColor}`}>{name}</span>
     </div>
   );
 };
 
-export default PostStatus;
+export default StatusIndicator;

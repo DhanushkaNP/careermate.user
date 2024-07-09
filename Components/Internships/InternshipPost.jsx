@@ -8,42 +8,41 @@ import {
   useUserId,
   useUserToken,
 } from "@/utils/Auth/auth-selectors";
-import { useFacultyId } from "@/utils/student/student-selectors";
 import { Avatar, Button, message } from "antd";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import { useRouter } from "next/navigation";
+import { UserOutlined } from "@ant-design/icons";
 
-const InternshipPost = ({ showDelete, showApprove }) => {
+const InternshipPost = ({ showDelete, showApply, facultyId }) => {
   const router = useRouter();
 
   const [postDetails, setPostsDetails] = useState(null);
   const [applied, setApplied] = useState(false);
   const [isPostApproved, setIsPostApproved] = useState(false);
 
-  const facultyId = useFacultyId();
-  const studentId = useUserId();
+  const userId = useUserId();
   const token = useUserToken();
   const isLoading = useIsLoading();
   const { id } = useParams();
 
   const fetchData = async () => {
+    console.log("fetching data");
     await api
       .get(`Faculties/${facultyId}/InternshipPost/${id}`, null, token)
       .then((response) => {
         setPostsDetails(response.item);
 
         setIsPostApproved(response.item.isApproved);
-        if (response.item.studentApplicants.includes(studentId))
-          setApplied(true);
+        if (response.item.studentApplicants.includes(userId)) setApplied(true);
       });
   };
 
   const createApplicant = async () => {
     try {
       await api
-        .post(`InternshipPosts/${id}/Applicant`, { studentId }, token)
+        .post(`InternshipPosts/${id}/Applicant`, { studentId: userId }, token)
         .then(() => {
           message.success("Successfully Applied!");
           setApplied(true);
@@ -76,9 +75,8 @@ const InternshipPost = ({ showDelete, showApprove }) => {
             <div className="border rounded-full">
               <Avatar
                 size={80}
-                src={
-                  "https://calcey.com/wp-content/uploads/2022/10/Calcey-Profile-Picture-V2.png"
-                }
+                src={postDetails.companyLogoUrl && postDetails.companyLogoUrl}
+                icon={!postDetails.companyLogoUrl && <UserOutlined />}
                 className=" z-0"
               />
             </div>
@@ -115,7 +113,7 @@ const InternshipPost = ({ showDelete, showApprove }) => {
           </div>
 
           <div className=" flex justify-end gap-2 mt-8 pt-6">
-            {showApprove && isPostApproved && !applied && (
+            {showApply && isPostApproved && !applied && (
               <Button
                 type="primary"
                 className="px-10 font-semibold"
@@ -125,7 +123,7 @@ const InternshipPost = ({ showDelete, showApprove }) => {
               </Button>
             )}
 
-            {showApprove && isPostApproved && applied && (
+            {showApply && isPostApproved && applied && (
               <Button disabled type="primary" className="px-10 font-semibold">
                 Applied
               </Button>

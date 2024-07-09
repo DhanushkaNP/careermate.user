@@ -7,3 +7,6 @@ export const useUniversityId = () =>
 
 export const useFacultyId = () =>
   useAppSelector((state) => state.companyReducer.values.facultyId);
+
+export const useCompanyName = () =>
+  useAppSelector((state) => state.companyReducer.values.name);

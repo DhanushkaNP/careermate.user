@@ -7,14 +7,14 @@ import {
   useUserId,
   useUserToken,
 } from "@/utils/Auth/auth-selectors";
-import { useFacultyId } from "@/utils/student/student-selectors";
+import { useFacultyId } from "@/utils/company/company-selectors";
 import React, { useEffect, useState } from "react";
 
-const StudentInternshipPosts = () => {
+const CompanyInternshipPosts = () => {
   const token = useUserToken();
   const facultyId = useFacultyId();
 
-  const studentId = useUserId();
+  const companyId = useUserId();
   const isLoading = useIsLoading();
 
   const [posts, setPosts] = useState([]);
@@ -22,7 +22,7 @@ const StudentInternshipPosts = () => {
   const fetchPosts = async () => {
     try {
       const response = await api.get(
-        `Faculties/${facultyId}/InternshipPost/Students/${studentId}/List`,
+        `Faculties/${facultyId}/InternshipPost/Companies/${companyId}/List`,
         null,
         token
       );
@@ -41,10 +41,10 @@ const StudentInternshipPosts = () => {
   return (
     <div>
       <h2 className=" text-4xl font-bold text-dark-blue">
-        <span className=" text-light-blue">Your</span> internship Posts
+        <span className=" text-light-blue">Our</span> internship Posts
       </h2>
 
-      <div className="mt-6">
+      <div className="mt-6 mb-20">
         {posts.map((ip) => (
           <InternshipDetailPostSummary
             key={ip.id}
@@ -56,7 +56,9 @@ const StudentInternshipPosts = () => {
             title={ip.title}
             description={ip.description}
             isApproved={ip.isApproved}
-            postUrl={"my-posts/"}
+            postUrl={"our-posts/"}
+            numberOfApplicants={ip.numberOfApplicants}
+            numberOfJobs={ip.numberOfJobs}
           />
         ))}
       </div>
@@ -64,4 +66,4 @@ const StudentInternshipPosts = () => {
   );
 };
 
-export default StudentInternshipPosts;
+export default CompanyInternshipPosts;

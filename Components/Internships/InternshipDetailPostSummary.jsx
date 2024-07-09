@@ -5,7 +5,7 @@ import { Avatar } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import PostStats from "./PostStats";
-import PostStatus from "./PostStatus";
+import StatusIndicator from "./PostStatus";
 
 const InternshipDetailPostSummary = ({
   id,
@@ -46,12 +46,15 @@ const InternshipDetailPostSummary = ({
       <div className=" w-full bg-white hover:bg-default-background shadow-sm border rounded-xl p-4">
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
-            <Avatar
-              size={56}
-              icon={!companylogo && <UserOutlined />}
-              src={companylogo}
-              className="!border-2"
-            />
+            <div className="border rounded-full ">
+              <Avatar
+                size={56}
+                icon={!companylogo && <UserOutlined />}
+                src={companylogo}
+                className="!border-2"
+              />
+            </div>
+
             <h5 className=" font-semibold text-lg">{companyName}</h5>
           </div>
 
@@ -60,7 +63,10 @@ const InternshipDetailPostSummary = ({
               {isApproved != null && (
                 <div className="text-base flex gap-2 mb-1">
                   <span>Status: </span>
-                  <PostStatus name={postStatusName} color={postStatusColor} />
+                  <StatusIndicator
+                    name={postStatusName}
+                    color={postStatusColor}
+                  />
                 </div>
               )}
 

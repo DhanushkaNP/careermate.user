@@ -4,6 +4,7 @@ const initialState = {
   values: {
     universityId: null,
     facultyId: null,
+    name: null,
   },
 };
 
@@ -18,7 +19,7 @@ export const auth = createSlice({
     },
 
     setCompanyData: (state, action) => {
-      const { universityId, facultyId } = action.payload;
+      const { universityId, facultyId, name } = action.payload;
       localStorage.removeItem("studentData");
       localStorage.removeItem("companyData");
       localStorage.setItem(
@@ -26,12 +27,14 @@ export const auth = createSlice({
         JSON.stringify({
           universityId,
           facultyId,
+          name,
         })
       );
       return {
         values: {
           universityId,
           facultyId,
+          name,
         },
       };
     },

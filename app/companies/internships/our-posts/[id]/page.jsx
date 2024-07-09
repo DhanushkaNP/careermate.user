@@ -1,13 +1,12 @@
 "use client";
 
 import InternshipPost from "@/Components/Internships/InternshipPost";
+import { useFacultyId } from "@/utils/company/company-selectors";
 import React from "react";
-import { useFacultyId } from "@/utils/student/student-selectors";
 
-const StudentInternshipPostView = () => {
+const CompanyInternshipPost = () => {
   const facultyId = useFacultyId();
-
   return <InternshipPost showDelete={true} facultyId={facultyId} />;
 };
 
-export default StudentInternshipPostView;
+export default CompanyInternshipPost;

@@ -5,13 +5,13 @@ import FormTitle from "@/Components/Forms/FormTitle";
 import api from "@/utils/api";
 import { useLogIn } from "@/utils/Auth/auth-actions";
 import { decodeToken } from "@/utils/Auth/auth-util";
-import { useSetCompanyData } from "@/utils/company/student-actions";
 import { getErrorMessage } from "@/utils/error-util";
 import { Alert, Button, Divider, Form, Input, message, Select } from "antd";
 import { useForm } from "antd/es/form/Form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useSetCompanyData } from "@/utils/company/company-actions";
 
 const CompanySignIn = () => {
   const [form] = useForm();
@@ -94,7 +94,12 @@ const CompanySignIn = () => {
           .then((response) => {
             const decodedToken = decodeToken(response.token);
 
-            setCompanyData(response.universityId, response.facultyId);
+            console.log(response);
+            setCompanyData(
+              response.universityId,
+              response.facultyId,
+              response.companyName
+            );
             logIn(
               response.token,
               response.userId,
@@ -105,7 +110,7 @@ const CompanySignIn = () => {
             );
 
             message.success("Sign up successful!");
-            router.push("/companies/internships");
+            router.push("/companies/internships/our-posts");
           });
       } catch (error) {
         const errorMessage = getErrorMessage(error);

@@ -6,7 +6,7 @@ import NumericInput from "@/Components/Forms/NumericInput";
 import { useLogIn } from "@/utils/Auth/auth-actions";
 import { decodeToken } from "@/utils/Auth/auth-util";
 import api from "@/utils/api";
-import { useSetCompanyData } from "@/utils/company/student-actions";
+import { useSetCompanyData } from "@/utils/company/company-actions";
 import { getErrorMessage } from "@/utils/error-util";
 import {
   Form,
@@ -170,10 +170,14 @@ const CompanySignUp = () => {
               response.CompanyLogoUrl
             );
 
-            setCompanyData(response.universityId, response.facultyId);
+            setCompanyData(
+              response.universityId,
+              response.facultyId,
+              response.companyName
+            );
 
             message.success("Sign up successful!");
-            router.push("/companies/internships");
+            router.push("/companies/internships/our-posts");
           });
       } catch (error) {
         const errorMessage = getErrorMessage(error);

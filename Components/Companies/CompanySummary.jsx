@@ -46,10 +46,10 @@ const CompanySummary = ({
 
   useEffect(() => {
     checkFollowing();
-  }, [id, studentId, token]);
+  }, [id]);
 
   return (
-    <Col span={8}>
+    <Col span={8} className="mb-4">
       <div className="bg-white shadow border p-4 font-default pb-8 hover:bg-default-background hover:cursor-pointer rounded-md h-full">
         <div className="flex gap-4">
           <div>

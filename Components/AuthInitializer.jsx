@@ -8,7 +8,7 @@ import { getStoredStudentData } from "@/utils/student/student-util";
 import {
   useRemoveCompanyData,
   useSetCompanyData,
-} from "@/utils/company/student-actions";
+} from "@/utils/company/company-actions";
 import { getStoredCompanyData } from "@/utils/company/company-util";
 import { Spin } from "antd";
 
@@ -71,8 +71,8 @@ const AuthInitializer = ({ children }) => {
         }
 
         if (storedCompanyData) {
-          const { universityId, facultyId } = storedCompanyData;
-          setCompanyData(universityId, facultyId);
+          const { universityId, facultyId, name } = storedCompanyData;
+          setCompanyData(universityId, facultyId, name);
         }
       }
 

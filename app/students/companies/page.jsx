@@ -37,15 +37,6 @@ const Companies = () => {
   const fetchCompanies = async (page = 1, pageSize = 12) => {
     let offset = (page - 1) * pageSize;
 
-    console.log(
-      token,
-      facultyId,
-      searchKeyword,
-      selectedIndustry,
-      offset,
-      pageSize
-    );
-
     let filters = {};
     if (selectedIndustry) filters = { ...filters, industry: selectedIndustry };
 
@@ -113,7 +104,6 @@ const Companies = () => {
             className="font-default bg-default-background w-52"
             placeholder="Industry"
             onSelect={(value) => setSelectedIndustry(value)}
-            maxCount={5}
             allowClear
             onClear={() => setSelectedIndustry(null)}
           >

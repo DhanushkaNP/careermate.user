@@ -8,8 +8,8 @@ import { useDispatch } from "react-redux";
 
 export const useSetCompanyData = () => {
   const dispatch = useDispatch();
-  return (universityId, facultyId) => {
-    dispatch(setCompanyData({ universityId, facultyId }));
+  return (universityId, facultyId, name) => {
+    dispatch(setCompanyData({ universityId, facultyId, name }));
   };
 };
 
