@@ -7,6 +7,7 @@ import { useIsAuth } from "@/utils/Auth/auth-selectors";
 import { decodeToken } from "@/utils/Auth/auth-util";
 import api from "@/utils/api";
 import { getErrorMessage } from "@/utils/error-util";
+import { studentLowProfilePicture } from "@/utils/firebase/FirebaseImageUrls";
 import { useSetStudentData } from "@/utils/student/student-actions";
 import {
   Col,
@@ -251,7 +252,9 @@ const StudentSignIn = () => {
               true,
               false,
               null,
-              response.profilePicUrl
+              response.profilePicFirebaseId
+                ? studentLowProfilePicture(response.profilePicFirebaseId)
+                : null
             );
             message.success("Sign up successful!");
             router.push("/students/internships");

@@ -5,6 +5,7 @@ import StudentOverview from "@/Components/Students/StudentOverview";
 import api, { formatFilters } from "@/utils/api";
 import { useIsLoading, useUserToken } from "@/utils/Auth/auth-selectors";
 import { useFacultyId } from "@/utils/company/company-selectors";
+import { studentLowProfilePicture } from "@/utils/firebase/FirebaseImageUrls";
 import { Col, Input, Row, Select } from "antd";
 import React, { useEffect, useState } from "react";
 
@@ -188,7 +189,11 @@ const CompanyStudents = () => {
         <div className="mt-2">
           {students.map((s) => (
             <StudentOverview
-              proPicUrl={s.profilePicUrl}
+              proPicUrl={
+                s.profilePicFirebaseId
+                  ? studentLowProfilePicture(s.profilePicFirebaseId)
+                  : null
+              }
               name={`${s.firstName} ${s.lastName}`}
               degree={s.degreeAcronym}
               pathway={s.pathwayName}

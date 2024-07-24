@@ -10,7 +10,6 @@ import {
   useUserToken,
 } from "@/utils/Auth/auth-selectors";
 import CustomPagination from "@/app/students/CustomPagination";
-import ApplicantOverview from "@/Components/Applicants/ApplicantOverview";
 
 const CompanyInterns = () => {
   const facultyId = useFacultyId();

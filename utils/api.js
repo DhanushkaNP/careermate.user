@@ -24,7 +24,7 @@ const api = {
     const config = token
       ? { headers: { Authorization: `Bearer ${token}` } }
       : {};
-    const response = await axiosInstance.get(url, { params, ...config });
+    const response = await axiosInstance.get(url, { ...config, params });
     return response.data;
   },
   post: async (url, data, token = null, headers = null) => {

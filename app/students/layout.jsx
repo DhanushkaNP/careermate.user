@@ -171,7 +171,7 @@ const StudentLayout = ({ children }) => {
           }
         >
           <Menu.Item key="4.1">
-            <Link href="/profile" className="font-default">
+            <Link href="/students/profile" className="font-default">
               Profile
             </Link>
           </Menu.Item>

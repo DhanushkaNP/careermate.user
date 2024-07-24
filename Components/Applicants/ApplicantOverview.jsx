@@ -15,6 +15,7 @@ const ApplicantOverview = ({
   id,
   proPicUrl,
   internshipPostId,
+  studentId,
 }) => {
   const router = useRouter();
 
@@ -59,7 +60,7 @@ const ApplicantOverview = ({
             type="primary"
             className="!text-xs"
             ghost
-            onClick={() => router.push(`students/${id}`)}
+            onClick={() => router.push(`students/${studentId}`)}
           >
             View profile
           </Button>

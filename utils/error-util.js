@@ -3,7 +3,7 @@ const { ErrorCodes } = require("@/shared/errorCodes");
 // pass the response that get from error #error.response
 export const getErrorMessage = (error) => {
   if (error.response.status >= 400 && error.response.status < 500) {
-    switch (error.response.data.ErrorCode) {
+    switch (error.response.data.errorCode) {
       case ErrorCodes.LogginUserDetailsIncorrect:
         return {
           message: "One or more user details incorrect.",
@@ -27,7 +27,12 @@ export const getErrorMessage = (error) => {
       case ErrorCodes.InvalidStudentCreateData:
         return {
           message:
-            "Invalid student data. Valid email and student Id should be provided",
+            "Invalid student data. Valid email and student Id should be provided.",
+        };
+
+      case ErrorCodes.ContactAlreadyExists:
+        return {
+          message: "Contact or link you trying to create is already exists.",
         };
 
       default:

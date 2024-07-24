@@ -3,7 +3,7 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Button, Col, Row } from "antd";
 import React from "react";
-import StatusIndicator from "../Internships/PostStatus";
+import StatusIndicator from "../StatusIndicator";
 import { useRouter } from "next/navigation";
 
 const StudentOverview = ({

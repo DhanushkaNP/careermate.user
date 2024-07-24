@@ -90,7 +90,7 @@ const FlyerUploader = ({ onFlyerUpload }) => {
     onRemove: handleFlyerRemove,
     beforeUpload, // Add this to validate the file size
     maxCount: 1,
-    accept: "image/jpeg,image/png,image/gif,image/bmp,image/svg+xml",
+    accept: "image/jpeg,image/png",
     fileList, // Controlled fileList
     onChange: (info) => {
       const { status } = info.file;

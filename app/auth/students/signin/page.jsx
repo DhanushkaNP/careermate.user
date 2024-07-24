@@ -6,6 +6,7 @@ import { useLogIn } from "@/utils/Auth/auth-actions";
 import { decodeToken } from "@/utils/Auth/auth-util";
 import api from "@/utils/api";
 import { getErrorMessage } from "@/utils/error-util";
+import { studentLowProfilePicture } from "@/utils/firebase/FirebaseImageUrls";
 import { useSetStudentData } from "@/utils/student/student-actions";
 import { Alert, Button, Divider, Form, Input, message } from "antd";
 import Link from "next/link";
@@ -45,7 +46,9 @@ const StudentSignIn = () => {
               decodedToken.exp,
               true,
               false,
-              response.profilePicUrl
+              response.profilePicFirebaseId
+                ? studentLowProfilePicture(response.profilePicFirebaseId)
+                : null
             );
 
             message.success("Sign In successful!");

@@ -11,7 +11,7 @@ const initialState = {
   },
 };
 
-export const auth = createSlice({
+export const student = createSlice({
   name: "student",
   initialState,
   reducers: {
@@ -52,8 +52,13 @@ export const auth = createSlice({
         },
       };
     },
+
+    setStudentName: (state, action) => {
+      state.values.fullName = action.payload.fullName;
+    },
   },
 });
 
-export const { removeStudentData, setStudentData } = auth.actions;
-export default auth.reducer;
+export const { removeStudentData, setStudentData, setStudentName } =
+  student.actions;
+export default student.reducer;

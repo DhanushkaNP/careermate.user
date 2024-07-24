@@ -21,7 +21,7 @@ const StatusIndicator = ({ name, color }) => {
 
   return (
     <div
-      className={`border-2 rounded-2xl text-center w-fit px-2 py-0 ${borderColor}`}
+      className={`border-2 rounded-2xl text-center w-fit px-2 py-0 h-fit ${borderColor}`}
     >
       <span className={`font-semibold !text-sm ${nameColor}`}>{name}</span>
     </div>

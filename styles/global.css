@@ -105,3 +105,11 @@ table {
 .ant-avatar-image img {
   @apply object-center object-cover !important;
 }
+
+.custom-form .ant-form-item {
+  @apply mb-3;
+}
+
+.custom-form .ant-input {
+  @apply bg-light-background;
+}

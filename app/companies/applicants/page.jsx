@@ -11,6 +11,7 @@ import {
 } from "@/utils/Auth/auth-selectors";
 import CustomPagination from "@/app/students/CustomPagination";
 import ApplicantOverview from "@/Components/Applicants/ApplicantOverview";
+import { studentLowProfilePicture } from "@/utils/firebase/FirebaseImageUrls";
 
 const CompanyApplicants = () => {
   const facultyId = useFacultyId();
@@ -191,8 +192,13 @@ const CompanyApplicants = () => {
               gpa={applicant.cgpa}
               internship={applicant.appliedInternshipName}
               id={applicant.id}
-              proPicUrl={applicant.profilePicUrl}
+              proPicUrl={
+                applicant.profilePicFirebaseId
+                  ? studentLowProfilePicture(applicant.profilePicFirebaseId)
+                  : null
+              }
               internshipPostId={applicant.appliedInternshipPostId}
+              studentId={applicant.studentId}
             />
           ))}
         </div>

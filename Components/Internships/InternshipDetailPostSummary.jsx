@@ -5,7 +5,7 @@ import { Avatar } from "antd";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import PostStats from "./PostStats";
-import StatusIndicator from "./PostStatus";
+import StatusIndicator from "../StatusIndicator";
 
 const InternshipDetailPostSummary = ({
   id,

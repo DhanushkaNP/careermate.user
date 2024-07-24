@@ -54,8 +54,12 @@ export const auth = createSlice({
     setLoading: (state, action) => {
       state.values.isLoading = action.payload.loading;
     },
+
+    setAvatarUrl: (state, action) => {
+      state.values.avatarUrl = action.payload.avatarUrl;
+    },
   },
 });
 
-export const { logIn, logOut, setLoading } = auth.actions;
+export const { logIn, logOut, setLoading, setAvatarUrl } = auth.actions;
 export default auth.reducer;

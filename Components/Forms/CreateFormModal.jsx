@@ -1,38 +1,33 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Form, Modal, Alert, Button } from "antd";
 import FormTitle from "./FormTitle";
 import { getErrorMessage } from "@/utils/error-util";
 
-const UpdateFormModal = ({
+const CreateFormModal = ({
   open,
   onCancel,
-  onUpdate,
+  onCreate,
   title,
   width,
-  initialValues,
   children,
 }) => {
   const [form] = Form.useForm();
   const [error, setError] = useState();
 
-  useEffect(() => {
-    form.resetFields();
-    if (initialValues) {
-      form.setFieldsValue(initialValues);
-    }
-  }, [initialValues]);
-
-  const handlUpdate = async () => {
+  const handlSubmit = async () => {
     form.validateFields().then(async (values) => {
       try {
-        console.log(values);
-        await onUpdate(values);
+        await onCreate(values);
         setError(null);
-      } catch (error) {
-        const errorMessage = getErrorMessage(error);
+        form.resetFields();
+      } catch (err) {
+        console.log(err);
+        const errorMessage = getErrorMessage(err);
+        console.log(errorMessage);
         setError(errorMessage.message);
+        console.log(error.message);
         return;
       }
     });
@@ -44,10 +39,11 @@ const UpdateFormModal = ({
       onCancel={onCancel}
       className="w-fit"
       width={width}
+      onOk={handlSubmit}
       closeIcon={false}
       footer={[
-        <Button key="update" type="primary" onClick={handlUpdate}>
-          Update
+        <Button key="Add" type="primary" onClick={handlSubmit}>
+          Add
         </Button>,
         <Button key="cancel" onClick={() => onCancel()}>
           Cancel
@@ -80,4 +76,4 @@ const UpdateFormModal = ({
   );
 };
 
-export default UpdateFormModal;
+export default CreateFormModal;
