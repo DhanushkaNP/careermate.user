@@ -21,7 +21,7 @@ const RootPage = () => {
     }
 
     if (isStudent) router.push("students/internships");
-    if (isCompany) router.push("companies/internships");
+    if (isCompany) router.push("companies/internships/our-posts");
   });
 
   return <div>Test</div>;

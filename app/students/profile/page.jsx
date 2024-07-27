@@ -41,8 +41,8 @@ import { useSetAvatarUrl } from "@/utils/Auth/auth-actions";
 import { useSetStudentName } from "@/utils/student/student-actions";
 import StudentExperiences from "../../../Components/Students/StudentExperiences";
 import StudentCertifications from "@/Components/Students/StudentCertifications";
-import StudentSkills from "@/Components/Students/StudentSkills";
-import ContactsAndSocialMedia from "@/Components/Students/ContactsAndSocialMedia";
+import ProfileSkills from "@/Components/Profiles/ProfileSkills";
+import ContactsAndSocialMedia from "@/Components/Profiles/ContactsAndSocialMedia";
 
 const StudentProfile = () => {
   const router = useRouter();
@@ -221,6 +221,7 @@ const StudentProfile = () => {
               <AvatarUploader
                 onAvatarUpload={handleProfilePictureUpload}
                 backendImageId={backendProfilePicId}
+                firebaseUrlPrefix={"student_profile_picture"}
               />
             </Col>
             <Col span={14}>
@@ -449,7 +450,7 @@ const StudentProfile = () => {
                     </div>
                   )}
                   {cvStatus === 2 && (
-                    <div className="flex gap-2 text-green">
+                    <div className="flex gap-2 text-light-blue">
                       <div className="flex text-sm gap-2">
                         <LinkOutlined className=" text-dark-gray" />
                         <p
@@ -465,12 +466,14 @@ const StudentProfile = () => {
                         />
                       </div>
                       <span>|</span>
-                      <p className="font-semibold text-sm">CV Approved</p>
-                      <FcApproval size={20} />
+                      <p className="font-semibold text-sm text-green">
+                        CV Approved
+                      </p>
+                      <FcApproval size={20} className="text-green" />
                     </div>
                   )}
                   {cvStatus === 3 && (
-                    <div className="flex gap-2 text-red">
+                    <div className="flex gap-2 text-light-blue">
                       <div className="flex text-sm gap-2">
                         <LinkOutlined className=" text-dark-gray" />
                         <p
@@ -486,8 +489,10 @@ const StudentProfile = () => {
                         />
                       </div>
                       <span>|</span>
-                      <p className="font-semibold text-sm">CV Rejected</p>
-                      <CiWarning size={20} />
+                      <p className="font-semibold text-sm text-red">
+                        CV Rejected
+                      </p>
+                      <CiWarning size={20} className="text-red" />
                       <p className="text-light-gray text-sm">
                         (Upload a new CV)
                       </p>
@@ -519,7 +524,7 @@ const StudentProfile = () => {
                 </Col>
                 <Col span={10}>
                   {/* Skills */}
-                  <StudentSkills editable={true} studentId={studentId} />
+                  <ProfileSkills editable={true} studentId={studentId} />
 
                   {/* Contact */}
                   <ContactsAndSocialMedia

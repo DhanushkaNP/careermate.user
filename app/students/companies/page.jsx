@@ -2,7 +2,7 @@
 import api, { formatFilters } from "@/utils/api";
 import { useIsLoading, useUserToken } from "@/utils/Auth/auth-selectors";
 import { useFacultyId } from "@/utils/student/student-selectors";
-import { Avatar, Button, Col, Input, Row, Select } from "antd";
+import { Input, Row, Select } from "antd";
 import React, { useState, useEffect } from "react";
 import CustomPagination from "../CustomPagination";
 import CompanySummary from "@/Components/Companies/CompanySummary";
@@ -46,8 +46,6 @@ const Companies = () => {
       search: searchKeyword,
       ...formatFilters(filters),
     };
-
-    console.log("params", params);
 
     try {
       const response = await api.get(
@@ -122,7 +120,7 @@ const Companies = () => {
             <CompanySummary
               key={company.id}
               id={company.id}
-              logoUrl={company.logoUrl}
+              firebaseLogoId={company.firebaseLogoId}
               name={company.name}
               industry={company.industryName}
               location={company.location}
@@ -130,50 +128,6 @@ const Companies = () => {
               bio={company.bio}
             />
           ))}
-          {/* <Col span={8}>
-            <div className="bg-white shadow border p-4 font-default pb-8 hover:bg-default-background hover:cursor-pointer rounded-md">
-              <div className="flex gap-4">
-                <div>
-                  <div className="border rounded-full">
-                    <Avatar
-                      size={56}
-                      src={
-                        "https://calcey.com/wp-content/uploads/2022/10/Calcey-Profile-Picture-V2.png"
-                      }
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <h2 className="text-lg font-bold">Calcey Technologies</h2>
-                  <div className="flex gap-2 items-center">
-                    <h5 className="text-lg">IT services</h5>
-                    <span className="font-extrabold">&middot;</span>
-                    <h6>Colombo</h6>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex justify-between mt-3">
-                <p>4 Followers</p>
-                <Button type="primary" size="small" className="px-4 text-sm">
-                  Follow
-                </Button>
-              </div>
-
-              <div className=" mt-4">
-                <p className=" text-justify">
-                  There are many variations of passages of Lorem Ipsum
-                  available, but the majority have suffered alteration in some
-                  form, by injected humour, or randomised wordswhich don't look
-                  even slightly believable. If you are going to use a passage of
-                  Lorem Ipsum, you need to be sure there isn't anything
-                  embarrassing hidden in the middle of text . . .There are many
-                  variations of passages of Lor . . .
-                </p>
-              </div>
-            </div>
-          </Col> */}
         </Row>
       </div>
 

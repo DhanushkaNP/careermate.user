@@ -16,6 +16,9 @@ const StatusIndicator = ({ name, color }) => {
     } else if (color === "green") {
       setBorderColor("!border-green");
       setNameColor("!text-green");
+    } else if (color === "black") {
+      setBorderColor("!border-black");
+      setNameColor("!text-black");
     }
   }, [color]);
 

@@ -7,49 +7,83 @@ import Form from "antd/es/form/Form";
 import { Select, Input, message } from "antd";
 import { useIsLoading, useUserToken } from "@/utils/Auth/auth-selectors";
 import api from "@/utils/api";
-import { ContactTypes } from "@/shared/ContactTypes";
 import ContactAndSocialMediaItem from "./ContactAndSocialMediaItem";
+import { StudentContactTypes } from "@/shared/studentContactTypes";
+import { CompanyContactTypes } from "@/shared/companyContactType";
 
-const ContactsAndSocialMedia = ({ editable, studentId }) => {
+const ContactsAndSocialMedia = ({ editable, studentId, companyId }) => {
   const token = useUserToken();
   const isLoading = useIsLoading();
 
   const [contacts, setContacts] = useState([]);
 
+  const [contactTypes, setContactTypes] = useState(StudentContactTypes);
+
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
 
   const fetchContacts = async () => {
-    await api
-      .get(`Students/${studentId}/Contact`, null, token)
-      .then((response) => {
-        setContacts(response.items);
-        console.log(response.items);
-      });
+    if (studentId) {
+      await api
+        .get(`Students/${studentId}/Contact`, null, token)
+        .then((response) => {
+          setContacts(response.items);
+        });
+    } else if (companyId) {
+      await api
+        .get(`Companies/${companyId}/Contact`, null, token)
+        .then((response) => {
+          setContacts(response.items);
+        });
+    }
   };
   const onAddContact = async (values) => {
-    console.log(values);
-    await api
-      .post(
-        `Students/${studentId}/Contact`,
-        {
-          data: values.data,
-          contactType: parseInt(values.type),
-        },
-        token
-      )
-      .then(() => {
-        message.success("Contact added successfully");
-        fetchContacts();
-        setIsCreateModalVisible(false);
-      });
+    if (studentId) {
+      await api
+        .post(
+          `Students/${studentId}/Contact`,
+          {
+            data: values.data,
+            contactType: parseInt(values.type),
+          },
+          token
+        )
+        .then(() => {
+          message.success("Contact added successfully");
+          fetchContacts();
+          setIsCreateModalVisible(false);
+        });
+    } else if (companyId) {
+      await api
+        .post(
+          `Companies/${companyId}/Contact`,
+          {
+            data: values.data,
+            contactType: parseInt(values.type),
+          },
+          token
+        )
+        .then(() => {
+          message.success("Contact added successfully");
+          fetchContacts();
+          setIsCreateModalVisible(false);
+        });
+    }
   };
 
   const onDeleteContact = async (id) => {
-    await api.delete(`Students/${studentId}/Contact/${id}`, token).then(() => {
-      message.success("Contact deleted successfully");
+    await api.delete(`Contact/${id}`, token).then(async () => {
+      message.success("Skill deleted successfully");
       fetchContacts();
     });
   };
+
+  useEffect(() => {
+    if (studentId) {
+      setContactTypes(StudentContactTypes);
+    } else if (companyId) {
+      setContactTypes(CompanyContactTypes);
+    }
+  }, []);
 
   useEffect(() => {
     if (isLoading) return;
@@ -57,7 +91,7 @@ const ContactsAndSocialMedia = ({ editable, studentId }) => {
   }, [isLoading, studentId]);
 
   return (
-    contacts.length > 0 && (
+    (contacts.length > 0 || editable === true) && (
       <>
         {editable && isCreateModalVisible && (
           <CreateFormModal
@@ -78,7 +112,7 @@ const ContactsAndSocialMedia = ({ editable, studentId }) => {
               ]}
             >
               <Select placeholder="Linkedin" notFoundContent={null} allowClear>
-                {Object.entries(ContactTypes).map(([key, value]) => (
+                {Object.entries(contactTypes).map(([key, value]) => (
                   <Select.Option key={key} value={key}>
                     {value}
                   </Select.Option>
@@ -127,6 +161,7 @@ const ContactsAndSocialMedia = ({ editable, studentId }) => {
                 type={item.type}
                 value={item.data}
                 onDelete={onDeleteContact}
+                editable={editable}
               />
             ))}
           </div>

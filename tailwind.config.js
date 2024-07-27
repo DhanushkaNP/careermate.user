@@ -23,6 +23,7 @@ module.exports = {
         "opacity-light-blue": "rgba(48, 86, 211, 0.35)",
         green: "#3f8600",
         red: "#cf1322",
+        "ice-blue": "#26A4FF",
       },
       backgroundImage: {
         "study-image": "url('/study2.png')",

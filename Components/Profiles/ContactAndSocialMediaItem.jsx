@@ -38,6 +38,7 @@ const ContactAndSocialMediaItem = ({ value, type, id, onDelete, editable }) => {
       icon = <MediumSquareFilled />;
       break;
     case 6:
+    case 7:
       icon = <GlobalOutlined />;
 
     default:

@@ -237,7 +237,7 @@ const CompanyLayout = ({ children }) => {
         {
           key: "5.1",
           label: (
-            <Link href="/profile" className="font-default">
+            <Link href="/companies/profile" className="font-default">
               Profile
             </Link>
           ),

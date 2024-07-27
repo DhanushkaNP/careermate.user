@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import { useRouter } from "next/navigation";
 import { UserOutlined } from "@ant-design/icons";
+import { companyLowProfilePicture } from "@/utils/firebase/FirebaseImageUrls";
 
 const InternshipPost = ({ showDelete, showApply, facultyId }) => {
   const router = useRouter();
@@ -75,8 +76,11 @@ const InternshipPost = ({ showDelete, showApply, facultyId }) => {
             <div className="border rounded-full">
               <Avatar
                 size={80}
-                src={postDetails.companyLogoUrl && postDetails.companyLogoUrl}
-                icon={!postDetails.companyLogoUrl && <UserOutlined />}
+                src={
+                  postDetails.firebaseLogoId &&
+                  companyLowProfilePicture(postDetails.firebaseLogoId)
+                }
+                icon={!postDetails.firebaseLogoId && <UserOutlined />}
                 className=" z-0"
               />
             </div>

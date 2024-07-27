@@ -10,10 +10,10 @@ import { useIsLoading, useUserToken } from "@/utils/Auth/auth-selectors";
 import api from "@/utils/api";
 import { studentHighProfilePicture } from "@/utils/firebase/FirebaseImageUrls";
 import StudentCertifications from "@/Components/Students/StudentCertifications";
-import StudentSkills from "@/Components/Students/StudentSkills";
-import ContactsAndSocialMedia from "@/Components/Students/ContactsAndSocialMedia";
 import StudentExperiences from "@/Components/Students/StudentExperiences";
 import { useFacultyId } from "@/utils/company/company-selectors";
+import ProfileSkills from "@/Components/Profiles/ProfileSkills";
+import ContactsAndSocialMedia from "@/Components/Profiles/ContactsAndSocialMedia";
 
 const CompanyStudentProfile = () => {
   const router = useRouter();
@@ -35,7 +35,7 @@ const CompanyStudentProfile = () => {
 
   const downloadCv = async () => {
     router.push(
-      `http://localhost:62200/api/Faculties/${facultyId}/Student/${studentId}/CV`
+      `http://localhost:62200/api/Faculties/${facultyId}/Student/${id}/CV`
     );
   };
 
@@ -120,7 +120,7 @@ const CompanyStudentProfile = () => {
                 </Col>
                 <Col span={10}>
                   {/* Skills */}
-                  <StudentSkills editable={false} studentId={id} />
+                  <ProfileSkills editable={false} studentId={id} />
 
                   {/* Contact */}
                   <ContactsAndSocialMedia studentId={id} />

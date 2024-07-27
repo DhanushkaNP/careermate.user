@@ -1,11 +1,13 @@
 import api from "@/utils/api";
 import { useUserId, useUserToken } from "@/utils/Auth/auth-selectors";
+import { companyLowProfilePicture } from "@/utils/firebase/FirebaseImageUrls";
 import { Col, Avatar, Button, message } from "antd";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const CompanySummary = ({
   id,
-  logoUrl,
+  firebaseLogoId,
   name,
   industry,
   location,
@@ -18,6 +20,8 @@ const CompanySummary = ({
   const token = useUserToken();
   const studentId = useUserId();
   const [isFollowing, setIsFollowing] = useState(false);
+
+  const router = useRouter();
 
   const followCompany = async () => {
     try {
@@ -49,12 +53,21 @@ const CompanySummary = ({
   }, [id]);
 
   return (
-    <Col span={8} className="mb-4">
+    <Col
+      span={8}
+      className="mb-4"
+      onClick={() => router.push(`companies/${id}`)}
+    >
       <div className="bg-white shadow border p-4 font-default pb-8 hover:bg-default-background hover:cursor-pointer rounded-md h-full">
         <div className="flex gap-4">
           <div>
             <div className="border rounded-full">
-              {logoUrl && <Avatar size={56} src={logoUrl} />}
+              {firebaseLogoId && (
+                <Avatar
+                  size={56}
+                  src={companyLowProfilePicture(firebaseLogoId)}
+                />
+              )}
             </div>
           </div>
 

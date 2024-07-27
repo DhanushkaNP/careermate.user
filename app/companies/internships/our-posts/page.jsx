@@ -45,12 +45,15 @@ const CompanyInternshipPosts = () => {
       </h2>
 
       <div className="mt-6 mb-20">
+        {posts.length === 0 && (
+          <p className=" text-light-gray italic">No internship posts</p>
+        )}
         {posts.map((ip) => (
           <InternshipDetailPostSummary
             key={ip.id}
             id={ip.id}
             companyName={ip.companyName}
-            companylogo={ip.companyLogoUrl}
+            companyLogoFirebaseId={ip.firebaseLogoId}
             location={ip.location}
             type={ip.type}
             title={ip.title}

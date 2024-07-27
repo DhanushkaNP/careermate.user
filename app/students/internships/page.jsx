@@ -242,7 +242,7 @@ const Internships = () => {
             key={ip.id}
             id={ip.id}
             companyName={ip.companyName}
-            companylogo={ip.companyLogoUrl}
+            companyLogoFirebaseId={ip.firebaseLogoId}
             numberOfApplicants={ip.numberOfApplicants}
             numberOfJobs={ip.numberOfJobs}
             location={ip.location}

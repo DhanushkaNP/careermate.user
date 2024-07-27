@@ -13,7 +13,11 @@ import imageCompression from "browser-image-compression";
 import { v4 as uuidv4 } from "uuid";
 import { storage } from "@/utils/firebase/firebaseConfig";
 
-const AvatarUploader = ({ onAvatarUpload, backendImageId }) => {
+const AvatarUploader = ({
+  onAvatarUpload,
+  backendImageId,
+  firebaseUrlPrefix,
+}) => {
   const [uploading, setUploading] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -25,7 +29,7 @@ const AvatarUploader = ({ onAvatarUpload, backendImageId }) => {
       // Fetch the URL of the existing image and set it in the file list
       const imageRef = ref(
         storage,
-        `student_profile_picture/high/${backendImageId}`
+        `${firebaseUrlPrefix}/high/${backendImageId}`
       );
       getDownloadURL(imageRef).then((url) => {
         setUniqueImageId(backendImageId);
@@ -43,6 +47,7 @@ const AvatarUploader = ({ onAvatarUpload, backendImageId }) => {
   }, [backendImageId]);
 
   const handleUpload = async ({ file, onSuccess, onError }) => {
+    console.log("Uploading", firebaseUrlPrefix);
     setUploading(true);
     try {
       if (file.size > 1048576) {
@@ -52,11 +57,11 @@ const AvatarUploader = ({ onAvatarUpload, backendImageId }) => {
       const uniqueImageId = `${uuidv4()}`;
       const storageRefHigh = ref(
         storage,
-        `student_profile_picture/high/${uniqueImageId}`
+        `${firebaseUrlPrefix}/high/${uniqueImageId}`
       );
       const storageRefLow = ref(
         storage,
-        `student_profile_picture/low/${uniqueImageId}`
+        `${firebaseUrlPrefix}/low/${uniqueImageId}`
       );
 
       const compressedFile = await imageCompression(file, {
@@ -88,6 +93,7 @@ const AvatarUploader = ({ onAvatarUpload, backendImageId }) => {
           const lowQualityURL = await getDownloadURL(
             uploadTaskLow.snapshot.ref
           );
+          console.log("Unique Image ID", uniqueImageId);
           setUniqueImageId(uniqueImageId);
           onAvatarUpload(uniqueImageId);
           setFileList([
@@ -115,11 +121,11 @@ const AvatarUploader = ({ onAvatarUpload, backendImageId }) => {
     if (uniqueImageId != backendImageId) {
       const fileRefHigh = ref(
         storage,
-        `student_profile_picture/high/${uniqueImageId}`
+        `${firebaseUrlPrefix}/high/${uniqueImageId}`
       );
       const fileRefLow = ref(
         storage,
-        `student_profile_picture/low/${uniqueImageId}`
+        `${firebaseUrlPrefix}/low/${uniqueImageId}`
       );
       await deleteObject(fileRefHigh);
       await deleteObject(fileRefLow);

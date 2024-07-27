@@ -6,10 +6,11 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import PostStats from "./PostStats";
 import StatusIndicator from "../StatusIndicator";
+import { companyLowProfilePicture } from "@/utils/firebase/FirebaseImageUrls";
 
 const InternshipDetailPostSummary = ({
   id,
-  companylogo,
+  companyLogoFirebaseId,
   companyName,
   location,
   type,
@@ -49,8 +50,12 @@ const InternshipDetailPostSummary = ({
             <div className="border rounded-full ">
               <Avatar
                 size={56}
-                icon={!companylogo && <UserOutlined />}
-                src={companylogo}
+                icon={!companyLogoFirebaseId && <UserOutlined />}
+                src={
+                  companyLogoFirebaseId
+                    ? companyLowProfilePicture(companyLogoFirebaseId)
+                    : null
+                }
                 className="!border-2"
               />
             </div>

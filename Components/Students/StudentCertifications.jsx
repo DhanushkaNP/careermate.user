@@ -27,7 +27,6 @@ const StudentCertifications = ({ editable, studentId }) => {
   };
 
   const onAddCertification = async (values) => {
-    console.log(values);
     const formattedIssuedMonth = values.issuedMonth.format("YYYY-MM-01"); // Set day to 01
     await api
       .post(

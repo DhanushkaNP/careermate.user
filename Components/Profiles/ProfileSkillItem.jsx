@@ -1,7 +1,7 @@
 import { DeleteOutlined } from "@ant-design/icons";
 import React from "react";
 
-const StudentSkillItem = ({ id, name, onDelete, editable }) => {
+const ProfileSkillItem = ({ id, name, onDelete, editable }) => {
   const deleteSkill = async () => {
     await onDelete(id);
   };
@@ -19,4 +19,4 @@ const StudentSkillItem = ({ id, name, onDelete, editable }) => {
   );
 };
 
-export default StudentSkillItem;
+export default ProfileSkillItem;

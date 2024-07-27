@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useSetCompanyData } from "@/utils/company/company-actions";
+import { companyLowProfilePicture } from "@/utils/firebase/FirebaseImageUrls";
 
 const CompanySignIn = () => {
   const [form] = useForm();
@@ -106,7 +107,9 @@ const CompanySignIn = () => {
               decodedToken.exp,
               false,
               true,
-              response.companyLogoUrl
+              response.firebaseLogoId
+                ? companyLowProfilePicture(response.firebaseLogoId)
+                : null
             );
 
             message.success("Sign up successful!");

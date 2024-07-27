@@ -13,4 +13,21 @@ const studentHighProfilePicture = (imageId) => {
   )}?alt=media`;
 };
 
-export { studentLowProfilePicture, studentHighProfilePicture };
+const companyLowProfilePicture = (imageId) => {
+  return `${baseUrl}companies_logo%2Flow%2F${encodeURIComponent(
+    imageId
+  )}?alt=media`;
+};
+
+const companyHighProfilePicture = (imageId) => {
+  return `${baseUrl}companies_logo%2Fhigh%2F${encodeURIComponent(
+    imageId
+  )}?alt=media`;
+};
+
+export {
+  studentLowProfilePicture,
+  studentHighProfilePicture,
+  companyLowProfilePicture,
+  companyHighProfilePicture,
+};

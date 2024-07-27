@@ -1,4 +1,4 @@
-export const ContactTypes = {
+export const StudentContactTypes = {
   0: "Email",
   1: "Phone",
   2: "LinkedIn",

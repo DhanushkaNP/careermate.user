@@ -167,7 +167,9 @@ const CompanySignUp = () => {
               false,
               true,
               null,
-              response.CompanyLogoUrl
+              response.firebaseLogoId
+                ? companyLowProfilePicture(response.firebaseLogoId)
+                : null
             );
 
             setCompanyData(

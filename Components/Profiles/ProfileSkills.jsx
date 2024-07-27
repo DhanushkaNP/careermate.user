@@ -1,16 +1,17 @@
-import {
-  useIsLoading,
-  useUserId,
-  useUserToken,
-} from "@/utils/Auth/auth-selectors";
+import { useIsLoading, useUserToken } from "@/utils/Auth/auth-selectors";
 import { Col, Form, Input, message, Row } from "antd";
 import React, { useEffect, useState } from "react";
 import CreateFormModal from "../Forms/CreateFormModal";
-import { DeleteOutlined, PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import api from "@/utils/api";
-import StudentSkillItem from "./StudentSkillItem";
+import ProfileSkillItem from "./ProfileSkillItem";
 
-const StudentSkills = ({ editable, studentId }) => {
+const ProfileSkills = ({
+  editable,
+  studentId = null,
+  companyId,
+  title = "Skills",
+}) => {
   const token = useUserToken();
   const isLoading = useIsLoading();
 
@@ -20,42 +21,61 @@ const StudentSkills = ({ editable, studentId }) => {
   const [skillSetTwo, setSkillSetTwo] = useState([]);
 
   const fetchSkills = async () => {
-    await api
-      .get(`Students/${studentId}/Skill`, null, token)
-      .then((response) => {
-        const skills = response.items;
-        const half = Math.ceil(skills.length / 2);
-        setSkillSetOne(skills.slice(0, half));
-        setSkillSetTwo(skills.slice(half, skills.length));
-      });
+    if (studentId) {
+      await api
+        .get(`Students/${studentId}/Skill`, null, token)
+        .then((response) => {
+          const skills = response.items;
+          const half = Math.ceil(skills.length / 2);
+          setSkillSetOne(skills.slice(0, half));
+          setSkillSetTwo(skills.slice(half, skills.length));
+        });
+    } else if (companyId) {
+      console.log("Company ID", companyId);
+      await api
+        .get(`Companies/${companyId}/Skill`, null, token)
+        .then((response) => {
+          const skills = response.items;
+          const half = Math.ceil(skills.length / 2);
+          setSkillSetOne(skills.slice(0, half));
+          setSkillSetTwo(skills.slice(half, skills.length));
+        });
+    }
   };
 
   const onAddSkill = async (values) => {
-    console.log(values);
-    await api
-      .post(`Students/${studentId}/Skill`, { name: values.name }, token)
-      .then(async () => {
-        message.success("Skill added successfully");
-        await fetchSkills();
-      });
+    if (studentId) {
+      await api
+        .post(`Students/${studentId}/Skill`, { name: values.name }, token)
+        .then(async () => {
+          message.success("Skill added successfully");
+          await fetchSkills();
+        });
+    } else if (companyId) {
+      await api
+        .post(`Companies/${companyId}/Skill`, { name: values.name }, token)
+        .then(async () => {
+          message.success("Skill added successfully");
+          await fetchSkills();
+        });
+    }
   };
 
   const onDeleteSkill = async (id) => {
-    await api
-      .delete(`Students/${studentId}/Skill/${id}`, token)
-      .then(async () => {
-        message.success("Skill deleted successfully");
-        await fetchSkills();
-      });
+    await api.delete(`Skill/${id}`, token).then(async () => {
+      message.success("Skill deleted successfully");
+      await fetchSkills();
+    });
   };
 
   useEffect(() => {
     if (isLoading) return;
     fetchSkills();
-  }, [isLoading, studentId]);
+    console.log("Company ID", companyId);
+  }, [isLoading, studentId, companyId]);
 
   return (
-    (skillSetOne.length > 0 || skillSetTwo.length > 0) && (
+    (skillSetOne.length > 0 || skillSetTwo.length > 0 || editable === true) && (
       <>
         {editable && isCreateModalVisible && (
           <CreateFormModal
@@ -80,7 +100,7 @@ const StudentSkills = ({ editable, studentId }) => {
 
         <div className="bg-white shadow rounded-md p-4 font-default">
           <div className="flex justify-between">
-            <h5 className="font-bold text-base">Skills</h5>{" "}
+            <h5 className="font-bold text-base">{title}</h5>{" "}
             {editable && (
               <PlusOutlined
                 onClick={() => setIsCreateModalVisible(true)}
@@ -94,10 +114,11 @@ const StudentSkills = ({ editable, studentId }) => {
               <Col span={12}>
                 <ul className="font-default font-semibold list-disc ps-4 w-full pe-3">
                   {skillSetOne.map((skill) => (
-                    <StudentSkillItem
+                    <ProfileSkillItem
                       id={skill.id}
                       name={skill.name}
                       onDelete={onDeleteSkill}
+                      editable={editable}
                     />
                   ))}
                 </ul>
@@ -105,7 +126,7 @@ const StudentSkills = ({ editable, studentId }) => {
               <Col span={12}>
                 <ul className="font-default font-semibold list-disc ps-4 w-full pe-3">
                   {skillSetTwo.map((skill) => (
-                    <StudentSkillItem
+                    <ProfileSkillItem
                       id={skill.id}
                       name={skill.name}
                       onDelete={onDeleteSkill}
@@ -122,4 +143,4 @@ const StudentSkills = ({ editable, studentId }) => {
   );
 };
 
-export default StudentSkills;
+export default ProfileSkills;

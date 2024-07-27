@@ -2,19 +2,16 @@
 
 import InternshipDetailPostSummary from "@/Components/Internships/InternshipDetailPostSummary";
 import api from "@/utils/api";
-import {
-  useIsLoading,
-  useUserId,
-  useUserToken,
-} from "@/utils/Auth/auth-selectors";
+import { useIsLoading, useUserToken } from "@/utils/Auth/auth-selectors";
 import { useFacultyId } from "@/utils/student/student-selectors";
+import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-const StudentInternshipPosts = () => {
+const StudentCompanyInternshipPosts = () => {
   const token = useUserToken();
   const facultyId = useFacultyId();
 
-  const studentId = useUserId();
+  const { id } = useParams();
   const isLoading = useIsLoading();
 
   const [posts, setPosts] = useState([]);
@@ -22,7 +19,7 @@ const StudentInternshipPosts = () => {
   const fetchPosts = async () => {
     try {
       const response = await api.get(
-        `Faculties/${facultyId}/InternshipPost/Students/${studentId}/List`,
+        `Faculties/${facultyId}/InternshipPost/Companies/${id}/List`,
         null,
         token
       );
@@ -41,10 +38,10 @@ const StudentInternshipPosts = () => {
   return (
     <div>
       <h2 className=" text-4xl font-bold text-dark-blue">
-        <span className=" text-light-blue">Your</span> internship Posts
+        <span className=" text-light-blue">Company</span> internship Posts
       </h2>
 
-      <div className="mt-6">
+      <div className="mt-6 mb-20">
         {posts.length === 0 && (
           <p className=" text-light-gray italic">No internship posts</p>
         )}
@@ -59,7 +56,9 @@ const StudentInternshipPosts = () => {
             title={ip.title}
             description={ip.description}
             isApproved={ip.isApproved}
-            postUrl={"my-posts/"}
+            postUrl={"/students/internships/"}
+            numberOfApplicants={ip.numberOfApplicants}
+            numberOfJobs={ip.numberOfJobs}
           />
         ))}
       </div>
@@ -67,4 +66,4 @@ const StudentInternshipPosts = () => {
   );
 };
 
-export default StudentInternshipPosts;
+export default StudentCompanyInternshipPosts;
