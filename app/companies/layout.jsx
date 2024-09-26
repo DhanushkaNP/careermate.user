@@ -171,20 +171,20 @@ const CompanyLayout = ({ children }) => {
         },
       ],
     },
-    {
-      key: "3",
-      label: <Link href="/companies/daily-diaries">Daily diary</Link>,
-      icon: (
-        <BiSolidBookBookmark
-          size={24}
-          className={
-            currentKey.some((key) => key.startsWith("3."))
-              ? "fill-light-blue"
-              : "fill-dark-gray"
-          }
-        />
-      ),
-    },
+    // {
+    //   key: "3",
+    //   label: <Link href="/companies/daily-diaries">Daily diary</Link>,
+    //   icon: (
+    //     <BiSolidBookBookmark
+    //       size={24}
+    //       className={
+    //         currentKey.some((key) => key.startsWith("3."))
+    //           ? "fill-light-blue"
+    //           : "fill-dark-gray"
+    //       }
+    //     />
+    //   ),
+    // },
     {
       key: "4",
       label: "Supervisors",

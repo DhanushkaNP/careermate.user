@@ -8,6 +8,7 @@ const initialState = {
     degreeId: null,
     pathwayId: null,
     fullName: null,
+    isIntern: false,
   },
 };
 
@@ -28,6 +29,7 @@ export const student = createSlice({
         degreeId,
         pathwayId,
         fullName,
+        isIntern,
       } = action.payload;
       localStorage.removeItem("studentData");
       localStorage.setItem(
@@ -39,6 +41,7 @@ export const student = createSlice({
           degreeId,
           pathwayId,
           fullName,
+          isIntern,
         })
       );
       return {
@@ -49,6 +52,7 @@ export const student = createSlice({
           degreeId,
           pathwayId,
           fullName,
+          isIntern,
         },
       };
     },
@@ -56,9 +60,13 @@ export const student = createSlice({
     setStudentName: (state, action) => {
       state.values.fullName = action.payload.fullName;
     },
+
+    setIntern: (state, action) => {
+      state.values.isIntern = action.payload.isIntern;
+    },
   },
 });
 
-export const { removeStudentData, setStudentData, setStudentName } =
+export const { removeStudentData, setStudentData, setStudentName, setIntern } =
   student.actions;
 export default student.reducer;

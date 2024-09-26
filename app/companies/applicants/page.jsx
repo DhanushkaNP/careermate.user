@@ -39,7 +39,6 @@ const CompanyApplicants = () => {
         token
       );
       setInternships(response.items);
-      console.log(response.items);
     } catch (error) {
       console.error("Failed to fetch degrees:", error);
       setInternships([]);
@@ -67,6 +66,7 @@ const CompanyApplicants = () => {
         token
       );
       setApplicants(response.items);
+      console.log("Applicants", response.items);
       setPagination((prev) => ({
         ...prev,
         total: response.meta.count,
@@ -149,43 +149,9 @@ const CompanyApplicants = () => {
         </div>
 
         <div className="mt-2">
-          {/* <div className="bg-white shadow-md w-full h-10 border">
-            <Row gutter={16} className="h-full">
-              <Col
-                span={1}
-                className="font-default flex justify-center items-center w-full "
-              >
-                <div className="border rounded-full">
-                  <Avatar
-                    className=""
-                    src="https://firebasestorage.googleapis.com/v0/b/careermate-564aa.appspot.com/o/flyers%2FUntitled%20design%20(2).png?alt=media&token=769a6a85-cc21-41b1-8447-747943a2d8c0"
-                  />
-                </div>
-              </Col>
-              <Col span={5} className="font-default flex items-center">
-                Danushka Nuwan
-              </Col>
-              <Col span={3} className="font-default flex items-center">
-                BICT (Hons)
-              </Col>
-              <Col span={5} className="font-default flex items-center">
-                Software system technology
-              </Col>
-              <Col span={2} className="font-default flex items-center">
-                3.82
-              </Col>
-              <Col span={5} className="font-default flex items-center">
-                <Link href={"test"}>Software engineer - Intern</Link>
-              </Col>
-              <Col span={3} className="font-default flex items-center">
-                <Button type="primary" size="small" className="!text-xs" ghost>
-                  View profile
-                </Button>
-              </Col>
-            </Row>
-          </div> */}
           {applicants.map((applicant) => (
             <ApplicantOverview
+              key={applicant.id}
               name={`${applicant.firstName} ${applicant.lastName}`}
               degree={applicant.degreeAcronym}
               pathway={applicant.pathwayName}
@@ -198,7 +164,11 @@ const CompanyApplicants = () => {
                   : null
               }
               internshipPostId={applicant.appliedInternshipPostId}
+              internshipId={applicant.appliedInternshipId}
               studentId={applicant.studentId}
+              profilePicFirebaseId={applicant.profilePicFirebaseId}
+              isAlreadyIntern={applicant.isAlreadyIntern}
+              fetchApplicants={fetchApplicants}
             />
           ))}
         </div>

@@ -240,13 +240,12 @@ const StudentCompanyProfile = () => {
               <Col span={10}>
                 {/* Skills company looking for */}
                 <ProfileSkills
-                  editable={true}
                   companyId={id}
                   title="Skills we are looking for"
                 />
 
                 {/* Contact */}
-                <ContactsAndSocialMedia companyId={id} editable={true} />
+                <ContactsAndSocialMedia companyId={id} />
               </Col>
             </Row>
           </div>

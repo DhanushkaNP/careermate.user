@@ -194,6 +194,7 @@ const CompanyStudents = () => {
                   ? studentLowProfilePicture(s.profilePicFirebaseId)
                   : null
               }
+              key={s.id}
               name={`${s.firstName} ${s.lastName}`}
               degree={s.degreeAcronym}
               pathway={s.pathwayName}

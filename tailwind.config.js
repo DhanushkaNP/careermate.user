@@ -14,6 +14,7 @@ module.exports = {
       colors: {
         "default-background": "#F7F9FB",
         "light-background": "#F7F9FB",
+        "light-blue-background": "#EFF4FB",
         "dark-bg": "#E0E5F2",
         "dark-blue": "#2B3674",
         "dark-dark-blue": "#252B42",
@@ -28,6 +29,7 @@ module.exports = {
       backgroundImage: {
         "study-image": "url('/study2.png')",
         "company-image": "url('/company2.png')",
+        "supervisor-image": "url('/supervisor.jpg')",
       },
     },
   },

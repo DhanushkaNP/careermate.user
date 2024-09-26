@@ -2,18 +2,22 @@
 
 import FormContainer from "@/Components/Forms/FormContainer";
 import FormTitle from "@/Components/Forms/FormTitle";
+import { setSupervisorData } from "@/app/redux/features/supervisor-slice";
 import { useLogIn } from "@/utils/Auth/auth-actions";
 import { decodeToken } from "@/utils/Auth/auth-util";
 import api from "@/utils/api";
 import { getErrorMessage } from "@/utils/error-util";
-import { studentLowProfilePicture } from "@/utils/firebase/FirebaseImageUrls";
+import {
+  companyLowProfilePicture,
+  studentLowProfilePicture,
+} from "@/utils/firebase/FirebaseImageUrls";
 import { useSetStudentData } from "@/utils/student/student-actions";
 import { Alert, Button, Divider, Form, Input, message } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const StudentSignIn = () => {
+const SupervisorSignIn = () => {
   const [form] = Form.useForm();
   const [error, SetError] = useState(null);
   const router = useRouter();
@@ -25,20 +29,16 @@ const StudentSignIn = () => {
     form.validateFields().then(async (values) => {
       try {
         await api
-          .post("Students/Login", {
+          .post("Supervisor/Login", {
             email: values["personal-email"],
             password: values.password,
           })
           .then((response) => {
             const decodedToken = decodeToken(response.token);
-            setStudentData(
-              response.universityId,
-              response.facultyId,
-              response.batchId,
-              response.degreeId,
-              response.pathwayId,
-              `${response.firstName} ${response.lastName}`,
-              response.isIntern
+            setSupervisorData(
+              response.supervisorId,
+              response.companyId,
+              `${response.firstName} ${response.lastName}`
             );
 
             logIn(
@@ -48,7 +48,7 @@ const StudentSignIn = () => {
               true,
               false,
               response.profilePicFirebaseId
-                ? studentLowProfilePicture(response.profilePicFirebaseId)
+                ? companyLowProfilePicture(response.profilePicFirebaseId)
                 : null
             );
 
@@ -178,4 +178,4 @@ const StudentSignIn = () => {
   );
 };
 
-export default StudentSignIn;
+export default SupervisorSignIn;

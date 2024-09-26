@@ -35,6 +35,17 @@ export const getErrorMessage = (error) => {
           message: "Contact or link you trying to create is already exists.",
         };
 
+      case ErrorCodes.DailyDiaryNotComplete:
+        return {
+          message:
+            "In order to request approval, daily diary should be completed.",
+        };
+
+      case ErrorCodes.AlreadyAnIntern:
+        return {
+          message: "You are already an intern.",
+        };
+
       default:
         return {
           message: error.response.data.Message,

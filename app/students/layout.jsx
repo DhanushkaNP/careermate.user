@@ -71,6 +71,139 @@ const StudentLayout = ({ children }) => {
     }
   }, [isAuth, isStudent, isLoading, router]);
 
+  const menuItems = [
+    {
+      key: "title",
+      label: (
+        <div>
+          <h1 className="font-inika text-dark-blue hover:text-dark-blue font-bold text-xl ms-10">
+            CareerMate
+          </h1>
+        </div>
+      ),
+      disabled: true,
+    },
+    {
+      key: "1",
+      label: "Internships",
+      icon: (
+        <TbBriefcase2Filled
+          size={24}
+          className={
+            currentKey.some((key) => key.startsWith("1."))
+              ? "fill-light-blue"
+              : "fill-dark-gray"
+          }
+        />
+      ),
+      children: [
+        {
+          key: "1.1",
+          label: (
+            <Link
+              href="/students/internships"
+              className="font-default text-dark-gray"
+            >
+              Find an internship
+            </Link>
+          ),
+        },
+        {
+          key: "1.2",
+          label: (
+            <Link
+              href="/students/internships/create-post"
+              className="font-default"
+            >
+              Post internships
+            </Link>
+          ),
+        },
+        {
+          key: "1.3",
+          label: (
+            <Link href="/test2" className="font-default">
+              Recruitation Invites
+            </Link>
+          ),
+        },
+        {
+          key: "1.4",
+          label: (
+            <Link
+              href="/students/internships/my-posts"
+              className="font-default"
+            >
+              My posts
+            </Link>
+          ),
+        },
+      ],
+    },
+    {
+      key: "2",
+      icon: (
+        <BsBuildings
+          size={20}
+          className={
+            currentKey.includes("2") ? "fill-light-blue" : "fill-dark-gray"
+          }
+        />
+      ),
+      label: <Link href="/students/companies">Find Companies</Link>,
+    },
+    {
+      key: "3",
+      icon: (
+        <BiSolidBookBookmark
+          size={24}
+          className={
+            currentKey.includes("3") ? "fill-light-blue" : "fill-dark-gray"
+          }
+        />
+      ),
+      label: <Link href="/students/daily-diary">Daily diary</Link>,
+    },
+    {
+      key: "4",
+      style: { marginLeft: "auto" },
+      className: "!me-14",
+      label: (
+        <h5 className="text-base">
+          <Avatar
+            icon={!studentAvatar && <UserOutlined />}
+            src={studentAvatar}
+          />
+          <span className="ms-2">{studentName}</span>
+        </h5>
+      ),
+      children: [
+        {
+          key: "4.1",
+          label: (
+            <Link href="/students/profile" className="font-default">
+              Profile
+            </Link>
+          ),
+        },
+        {
+          key: "4.2",
+          label: (
+            <h5
+              className="font-default"
+              onClick={() => {
+                signout();
+                router.push("/auth/students/signin");
+              }}
+            >
+              Signout
+            </h5>
+          ),
+        },
+      ],
+    },
+  ];
+
   return (
     <div>
       <Menu
@@ -78,114 +211,8 @@ const StudentLayout = ({ children }) => {
         onClick={onClick}
         mode="horizontal"
         className="font-default fixed-top-menu w-full shadow-sm z-10"
-      >
-        <Menu.Item key="title" disabled>
-          <div>
-            <h1 className="font-inika text-dark-blue hover:text-dark-blue font-bold text-xl ms-10">
-              CareerMate
-            </h1>
-          </div>
-        </Menu.Item>
-        <Menu.SubMenu
-          key="1"
-          title="Internships"
-          icon={
-            <TbBriefcase2Filled
-              size={24}
-              className={
-                currentKey.some((key) => key.startsWith("1."))
-                  ? "fill-light-blue"
-                  : "fill-dark-gray"
-              }
-            />
-          }
-        >
-          <Menu.Item key="1.1">
-            <Link
-              href="/students/internships"
-              className="font-default text-dark-gray"
-            >
-              Find an internship
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="1.2">
-            <Link
-              href="/students/internships/create-post"
-              className="font-default"
-            >
-              Post internships
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="1.3">
-            <Link href="/test2" className="font-default">
-              Recruitation Invites
-            </Link>
-          </Menu.Item>
-          <Menu.Item key="1.4">
-            <Link
-              href="/students/internships/my-posts"
-              className="font-default"
-            >
-              My posts
-            </Link>
-          </Menu.Item>
-        </Menu.SubMenu>
-        <Menu.Item
-          key="2"
-          icon={
-            <BsBuildings
-              size={20}
-              className={
-                currentKey.includes("2") ? "fill-light-blue" : "fill-dark-gray"
-              }
-            />
-          }
-        >
-          <Link href="/students/companies">Find Companies</Link>
-        </Menu.Item>
-        <Menu.Item
-          key="3"
-          icon={
-            <BiSolidBookBookmark
-              size={24}
-              className={
-                currentKey.includes("3") ? "fill-light-blue" : "fill-dark-gray"
-              }
-            />
-          }
-        >
-          <Link href="/internships5">Daily diary</Link>
-        </Menu.Item>
-        <Menu.SubMenu
-          key="4"
-          style={{ marginLeft: "auto" }}
-          className="!me-14"
-          title={
-            <h5 className="ext-base">
-              <Avatar
-                icon={!studentAvatar && <UserOutlined />}
-                src={studentAvatar}
-              />
-              <span className="ms-2">{studentName}</span>
-            </h5>
-          }
-        >
-          <Menu.Item key="4.1">
-            <Link href="/students/profile" className="font-default">
-              Profile
-            </Link>
-          </Menu.Item>
-          <Menu.Item
-            key="4.2"
-            onClick={() => {
-              signout();
-              router.push("/auth/students/signin");
-            }}
-          >
-            <h5 className="font-default">Signout</h5>
-          </Menu.Item>
-        </Menu.SubMenu>
-      </Menu>
+        items={menuItems}
+      />
       <div className="mx-44 h-full pt-16">{children}</div>
     </div>
   );

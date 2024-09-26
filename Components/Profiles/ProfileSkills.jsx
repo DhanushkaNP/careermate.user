@@ -115,6 +115,7 @@ const ProfileSkills = ({
                 <ul className="font-default font-semibold list-disc ps-4 w-full pe-3">
                   {skillSetOne.map((skill) => (
                     <ProfileSkillItem
+                      key={skill.id}
                       id={skill.id}
                       name={skill.name}
                       onDelete={onDeleteSkill}
@@ -127,6 +128,7 @@ const ProfileSkills = ({
                 <ul className="font-default font-semibold list-disc ps-4 w-full pe-3">
                   {skillSetTwo.map((skill) => (
                     <ProfileSkillItem
+                      key={skill.id}
                       id={skill.id}
                       name={skill.name}
                       onDelete={onDeleteSkill}

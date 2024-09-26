@@ -3,7 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { getStoredAuthData } from "@/utils/Auth/auth-util";
 import { useLogIn, useLogout, useSetLoading } from "@/utils/Auth/auth-actions";
-import { useSetStudentData } from "@/utils/student/student-actions";
+import {
+  useRemoveStudentData,
+  useSetStudentData,
+} from "@/utils/student/student-actions";
 import { getStoredStudentData } from "@/utils/student/student-util";
 import {
   useRemoveCompanyData,
@@ -11,6 +14,9 @@ import {
 } from "@/utils/company/company-actions";
 import { getStoredCompanyData } from "@/utils/company/company-util";
 import { Spin } from "antd";
+import { getStoredSupervisorData } from "@/utils/supervisor/supervisor-util";
+import { useRemoveSupervisorData } from "@/utils/supervisor/supervisor-actions";
+import { setSupervisorData } from "@/app/redux/features/supervisor-slice";
 
 const AuthInitializer = ({ children }) => {
   const setLoading = useSetLoading();
@@ -19,7 +25,8 @@ const AuthInitializer = ({ children }) => {
   const setStudentData = useSetStudentData();
   const setCompanyData = useSetCompanyData();
   const removeCompanyData = useRemoveCompanyData();
-  const removeStudentData = useSetStudentData();
+  const removeStudentData = useRemoveStudentData();
+  const removeSupervisorData = useRemoveSupervisorData();
   const [loadingSpin, setLoadingSpin] = useState(true);
 
   useEffect(() => {
@@ -28,6 +35,7 @@ const AuthInitializer = ({ children }) => {
       const storedAuthData = getStoredAuthData();
       const storedStudentData = getStoredStudentData();
       const storedCompanyData = getStoredCompanyData();
+      const storedSuperVisorData = getStoredSupervisorData();
 
       if (storedAuthData) {
         const {
@@ -46,6 +54,7 @@ const AuthInitializer = ({ children }) => {
         if (Date.now() > formattedExpirationTime * 1000) {
           removeCompanyData();
           removeStudentData();
+          removeSupervisorData();
           logOut();
         } else {
           logIn(token, userId, expirationTime, isStudent, isCompany, avatarUrl);
@@ -59,6 +68,7 @@ const AuthInitializer = ({ children }) => {
             degreeId,
             pathwayId,
             fullName,
+            isIntern,
           } = storedStudentData;
           setStudentData(
             universityId,
@@ -66,13 +76,15 @@ const AuthInitializer = ({ children }) => {
             batchId,
             degreeId,
             pathwayId,
-            fullName
+            fullName,
+            isIntern
           );
-        }
-
-        if (storedCompanyData) {
+        } else if (storedCompanyData) {
           const { universityId, facultyId, name } = storedCompanyData;
           setCompanyData(universityId, facultyId, name);
+        } else if (storedSuperVisorData) {
+          const { id, companyId, fullName } = storedSuperVisorData;
+          setSupervisorData(id, companyId, fullName);
         }
       }
 
@@ -86,8 +98,10 @@ const AuthInitializer = ({ children }) => {
     logOut,
     removeCompanyData,
     removeStudentData,
+    removeSupervisorData,
     setStudentData,
     setCompanyData,
+    removeSupervisorData,
     setLoading,
   ]);
 

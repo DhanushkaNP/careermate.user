@@ -12,6 +12,7 @@ const CreateFormModal = ({
   title,
   width,
   children,
+  buttonTitle = "Add",
 }) => {
   const [form] = Form.useForm();
   const [error, setError] = useState();
@@ -42,8 +43,8 @@ const CreateFormModal = ({
       onOk={handlSubmit}
       closeIcon={false}
       footer={[
-        <Button key="Add" type="primary" onClick={handlSubmit}>
-          Add
+        <Button key={buttonTitle} type="primary" onClick={handlSubmit}>
+          {buttonTitle}
         </Button>,
         <Button key="cancel" onClick={() => onCancel()}>
           Cancel

@@ -23,10 +23,10 @@ import {
 } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IoArrowForwardCircle } from "react-icons/io5";
 
-const StudentSignIn = () => {
+const StudentSignup = () => {
   const [step, setStep] = useState(1);
   const [form1] = Form.useForm();
   const [form2] = Form.useForm();
@@ -242,7 +242,8 @@ const StudentSignIn = () => {
               response.batchId,
               response.degreeId,
               response.pathwayId,
-              `${response.firstName} ${response.lastName}`
+              `${response.firstName} ${response.lastName}`,
+              response.isIntern
             );
 
             login(
@@ -717,4 +718,4 @@ const StudentSignIn = () => {
   );
 };
 
-export default StudentSignIn;
+export default StudentSignup;

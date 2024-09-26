@@ -7,7 +7,7 @@ import { useFacultyId } from "@/utils/student/student-selectors";
 const InternshipPostView = () => {
   const facultyId = useFacultyId();
 
-  return <InternshipPost showApprove={true} facultyId={facultyId} />;
+  return <InternshipPost showApply={true} facultyId={facultyId} />;
 };
 
 export default InternshipPostView;

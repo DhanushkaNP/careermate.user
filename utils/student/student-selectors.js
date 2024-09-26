@@ -19,3 +19,6 @@ export const usePathwayId = () =>
 
 export const useStudentFullName = () =>
   useAppSelector((state) => state.studentReducer.values.fullName);
+
+export const useIsIntern = () =>
+  useAppSelector((state) => state.studentReducer.values.isIntern);
