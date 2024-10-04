@@ -1,12 +1,21 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Avatar, Button, Col, DatePicker, Form, message, Row } from "antd";
+import {
+  Avatar,
+  Button,
+  Col,
+  DatePicker,
+  Form,
+  message,
+  Row,
+  Select,
+} from "antd";
 import Link from "next/link";
 import { UserOutlined } from "@ant-design/icons";
 import { studentLowProfilePicture } from "@/utils/firebase/FirebaseImageUrls";
 import api from "@/utils/api";
-import { useUserToken } from "@/utils/Auth/auth-selectors";
+import { useUserId, useUserToken } from "@/utils/Auth/auth-selectors";
 import CreateFormModal from "../Forms/CreateFormModal";
 
 const ApplicantOverview = ({
@@ -24,10 +33,22 @@ const ApplicantOverview = ({
   fetchApplicants,
 }) => {
   const token = useUserToken();
+  const companyId = useUserId();
+
   const [isCreateModalVisible, setIsCreateModalVisible] = useState(false);
 
+  const [supervisors, setSupervisors] = useState([]);
+  const [supervisorSearchTerm, setSupervisorSearchTerm] = useState("");
+  const [selectedSupervisor, setSelectedSupervisor] = useState(null);
+
   const recruitApplicant = async (values) => {
-    const { "start-at": startAt, "end-at": endAt } = values;
+    const {
+      "start-at": startAt,
+      "end-at": endAt,
+      supervisor: supervsiorId,
+    } = values;
+
+    console.log(supervsiorId);
 
     const formattedStartAt = startAt.format("YYYY-MM-DD");
     const formattedEndAt = endAt.format("YYYY-MM-DD");
@@ -35,7 +56,12 @@ const ApplicantOverview = ({
     await api
       .post(
         `Internships/${internshipId}/Intern`,
-        { applicantId: id, startAt: formattedStartAt, endAt: formattedEndAt },
+        {
+          applicantId: id,
+          startAt: formattedStartAt,
+          endAt: formattedEndAt,
+          supervisorId: supervsiorId,
+        },
         token
       )
       .then(() => {
@@ -43,6 +69,27 @@ const ApplicantOverview = ({
         setIsCreateModalVisible(false);
         fetchApplicants();
       });
+  };
+
+  const handleSupervisorSearch = async (value) => {
+    setSupervisorSearchTerm(value);
+    if (value) {
+      try {
+        const response = await api.get(
+          `Companies/${companyId}/Supervisor/Suggestions`,
+          {
+            search: value,
+          },
+          token
+        );
+        setSupervisors(response.items);
+      } catch (error) {
+        console.error("Failed to fetch supervisors:", error);
+        setSupervisors([]);
+      }
+    } else {
+      setSupervisors([]);
+    }
   };
 
   return (
@@ -81,6 +128,46 @@ const ApplicantOverview = ({
               rules={[{ required: true, message: "Please input a end date!" }]}
             >
               <DatePicker picker="date" size="large" className="w-full" />
+            </Form.Item>
+          </Col>
+        </Row>
+
+        <Row gutter={16}>
+          <Col span={24}>
+            <Form.Item
+              label={
+                <span className="font-default text-dark-dark-blue font-bold">
+                  Select supervisor
+                </span>
+              }
+              name={"supervisor"}
+              rules={[{ required: true, message: "Select supervisor" }]}
+            >
+              <Select
+                showSearch
+                placeholder="Search for a supervisor"
+                filterOption={false}
+                notFoundContent={null}
+                size="large"
+                allowClear
+                className="w-full"
+                onSearch={handleSupervisorSearch}
+                value={supervisorSearchTerm}
+                onSelect={(value, option) => {
+                  setSelectedSupervisor(value),
+                    setSupervisorSearchTerm(option.children);
+                }}
+                onClear={() => {
+                  setSupervisors([]);
+                  setSelectedSupervisor(null);
+                }}
+              >
+                {supervisors.map((s) => (
+                  <Select.Option
+                    key={s.id}
+                  >{`${s.firstName} ${s.lastName} (${s.email})`}</Select.Option>
+                ))}
+              </Select>
             </Form.Item>
           </Col>
         </Row>

@@ -252,6 +252,7 @@ const StudentSignup = () => {
               decodedToken.exp,
               true,
               false,
+              false,
               null,
               response.profilePicFirebaseId
                 ? studentLowProfilePicture(response.profilePicFirebaseId)

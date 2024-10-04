@@ -10,6 +10,9 @@ import {
   useUserToken,
 } from "@/utils/Auth/auth-selectors";
 import CustomPagination from "@/app/students/CustomPagination";
+import CompanyInternOverviewHeading from "@/Components/Interns/CompanyInternOverviewHeading";
+import CompanyInternOverview from "@/Components/Interns/CompanyInternOverview";
+import { studentLowProfilePicture } from "@/utils/firebase/FirebaseImageUrls";
 
 const CompanyInterns = () => {
   const facultyId = useFacultyId();
@@ -39,7 +42,7 @@ const CompanyInterns = () => {
       setInternships(response.items);
       console.log(response.items);
     } catch (error) {
-      console.error("Failed to fetch degrees:", error);
+      console.error("Failed to fetch internships:", error);
       setInternships([]);
     }
   };
@@ -61,11 +64,13 @@ const CompanyInterns = () => {
     try {
       const response = await api.get(
         // Url should verify with backend
-        `Faculties/${facultyId}/Companies/${companyId}/Interns/List`,
+        `Companies/${companyId}/Interns`,
         params,
         token
       );
       setInterns(response.items);
+      console.log("Interns", response.items);
+
       setPagination((prev) => ({
         ...prev,
         total: response.meta.count,
@@ -83,7 +88,7 @@ const CompanyInterns = () => {
 
   useEffect(() => {
     fetchInternships();
-  }, [companyId, facultyId]);
+  }, [companyId, facultyId, selectedInternship, searchKeyword]);
 
   useEffect(() => {
     if (isLoading) return;
@@ -124,30 +129,10 @@ const CompanyInterns = () => {
       </div>
 
       <div className="mt-4">
-        <div className="bg-white shadow-md w-full h-8 font-semibold">
-          <Row gutter={16} className="h-full">
-            <Col span={1} className="font-default flex justify-center"></Col>
-            <Col span={5} className="font-default flex items-center">
-              Name
-            </Col>
-            <Col span={5} className="font-default flex items-center">
-              Supervisor
-            </Col>
-            <Col span={3} className="font-default flex items-center">
-              Start Date
-            </Col>
-            <Col span={2} className="font-default flex items-center">
-              Duration
-            </Col>
-            <Col span={5} className="font-default flex items-center">
-              Internship
-            </Col>
-            <Col span={3} className="font-default flex items-center"></Col>
-          </Row>
-        </div>
+        <CompanyInternOverviewHeading />
 
         <div className="mt-2">
-          <div className="bg-white shadow-md w-full h-14 border">
+          {/* <div className="bg-white shadow-md w-full h-14 border">
             <Row gutter={16} className="h-full">
               <Col
                 span={1}
@@ -163,14 +148,14 @@ const CompanyInterns = () => {
               <Col span={5} className="font-default flex items-center">
                 Danushka Nuwan
               </Col>
-              <Col span={5} className="font-default flex items-center">
+              <Col span={4} className="font-default flex items-center">
                 Sahan Diasena
               </Col>
               <Col span={3} className="font-default flex items-center">
                 October 02, 2023
               </Col>
-              <Col span={2} className="font-default flex items-center">
-                6 Months
+              <Col span={3} className="font-default flex items-center">
+                October 02, 2023{" "}
               </Col>
               <Col span={5} className="font-default flex items-center">
                 <p>Software engineer - Intern</p>
@@ -181,7 +166,24 @@ const CompanyInterns = () => {
                 </Button>
               </Col>
             </Row>
-          </div>
+          </div> */}
+          {interns.map((i) => (
+            <CompanyInternOverview
+              key={i.internId}
+              id={i.internId}
+              internStudentId={i.internStudentId}
+              internName={i.name}
+              supervisorName={i.supervisorName}
+              internStartAt={i.internshipStartAt}
+              internEndAt={i.internshipEndAt}
+              internshipName={i.internshipName}
+              proPicUrl={
+                i.profilePicFirebaseId
+                  ? studentLowProfilePicture(i.profilePicFirebaseId)
+                  : null
+              }
+            />
+          ))}
         </div>
       </div>
 

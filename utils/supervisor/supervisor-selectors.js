@@ -8,5 +8,8 @@ export const useSupervisorId = () =>
 export const useCompanyId = () =>
   useAppSelector((state) => state.supervisorReducer.values.companyId);
 
-export const useFullName = () =>
+export const useSupervisorName = () =>
   useAppSelector((state) => state.supervisorReducer.values.fullName);
+
+export const useSupervisorFacultyId = () =>
+  useAppSelector((state) => state.supervisorReducer.values.facultyId);

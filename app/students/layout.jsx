@@ -25,13 +25,13 @@ const mapPathToKey = (path) => {
       return "1.2";
     case "/test2":
       return "1.3";
-    case "/test3":
+    case "/students/internships/my-posts":
       return "1.4";
-    case "/companies":
+    case "/students/companies":
       return "2";
-    case "/internships5":
+    case "/students/daily-diary":
       return "3";
-    case "/profile":
+    case "/students/profile":
       return "4.1";
     default:
       return "1.1";

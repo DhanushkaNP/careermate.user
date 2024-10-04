@@ -7,6 +7,7 @@ const initialState = {
     token: null,
     isStudent: false,
     isCompany: false,
+    isSupervisor: false,
     avatarUrl: null,
     isLoading: true,
   },
@@ -20,12 +21,20 @@ export const auth = createSlice({
       localStorage.removeItem("authData");
       localStorage.removeItem("studentData");
       localStorage.removeItem("companyData");
+      localStorage.removeItem("supervisorData");
       return initialState;
     },
 
     logIn: (state, action) => {
-      const { token, userId, expirationTime, isStudent, isCompany, avatarUrl } =
-        action.payload;
+      const {
+        token,
+        userId,
+        expirationTime,
+        isStudent,
+        isCompany,
+        isSupervisor,
+        avatarUrl,
+      } = action.payload;
       localStorage.removeItem("authData");
       localStorage.setItem(
         "authData",
@@ -35,6 +44,7 @@ export const auth = createSlice({
           expirationTime,
           isStudent,
           isCompany,
+          isSupervisor,
           avatarUrl,
         })
       );
@@ -45,6 +55,7 @@ export const auth = createSlice({
           token,
           isStudent,
           isCompany,
+          isSupervisor,
           avatarUrl,
           isLoading: false,
         },

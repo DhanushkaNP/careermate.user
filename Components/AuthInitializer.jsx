@@ -15,8 +15,10 @@ import {
 import { getStoredCompanyData } from "@/utils/company/company-util";
 import { Spin } from "antd";
 import { getStoredSupervisorData } from "@/utils/supervisor/supervisor-util";
-import { useRemoveSupervisorData } from "@/utils/supervisor/supervisor-actions";
-import { setSupervisorData } from "@/app/redux/features/supervisor-slice";
+import {
+  useRemoveSupervisorData,
+  useSetSupervisorData,
+} from "@/utils/supervisor/supervisor-actions";
 
 const AuthInitializer = ({ children }) => {
   const setLoading = useSetLoading();
@@ -24,6 +26,7 @@ const AuthInitializer = ({ children }) => {
   const logOut = useLogout();
   const setStudentData = useSetStudentData();
   const setCompanyData = useSetCompanyData();
+  const setSupervisorData = useSetSupervisorData();
   const removeCompanyData = useRemoveCompanyData();
   const removeStudentData = useRemoveStudentData();
   const removeSupervisorData = useRemoveSupervisorData();
@@ -44,6 +47,7 @@ const AuthInitializer = ({ children }) => {
           userId,
           isStudent,
           isCompany,
+          isSupervisor,
           avatarUrl,
         } = storedAuthData;
         const expirationTimeInString = `${expirationTime}`;
@@ -57,7 +61,15 @@ const AuthInitializer = ({ children }) => {
           removeSupervisorData();
           logOut();
         } else {
-          logIn(token, userId, expirationTime, isStudent, isCompany, avatarUrl);
+          logIn(
+            token,
+            userId,
+            expirationTime,
+            isStudent,
+            isCompany,
+            isSupervisor,
+            avatarUrl
+          );
         }
 
         if (storedStudentData) {
@@ -83,8 +95,8 @@ const AuthInitializer = ({ children }) => {
           const { universityId, facultyId, name } = storedCompanyData;
           setCompanyData(universityId, facultyId, name);
         } else if (storedSuperVisorData) {
-          const { id, companyId, fullName } = storedSuperVisorData;
-          setSupervisorData(id, companyId, fullName);
+          const { id, companyId, fullName, facultyId } = storedSuperVisorData;
+          setSupervisorData(id, companyId, fullName, facultyId);
         }
       }
 

@@ -10,9 +10,25 @@ import {
 
 export const useLogIn = () => {
   const dispatch = useDispatch();
-  return (token, userId, expirationTime, isStudent, isCompany, avatarUrl) => {
+  return (
+    token,
+    userId,
+    expirationTime,
+    isStudent,
+    isCompany,
+    isSupervisor,
+    avatarUrl
+  ) => {
     dispatch(
-      logIn({ token, userId, expirationTime, isStudent, isCompany, avatarUrl })
+      logIn({
+        token,
+        userId,
+        expirationTime,
+        isStudent,
+        isCompany,
+        isSupervisor,
+        avatarUrl,
+      })
     );
   };
 };

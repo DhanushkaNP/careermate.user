@@ -166,6 +166,7 @@ const CompanySignUp = () => {
               decodedToken.exp,
               false,
               true,
+              false,
               null,
               response.firebaseLogoId
                 ? companyLowProfilePicture(response.firebaseLogoId)

@@ -47,6 +47,7 @@ const StudentSignIn = () => {
               decodedToken.exp,
               true,
               false,
+              false,
               response.profilePicFirebaseId
                 ? studentLowProfilePicture(response.profilePicFirebaseId)
                 : null

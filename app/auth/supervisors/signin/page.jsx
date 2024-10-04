@@ -2,17 +2,13 @@
 
 import FormContainer from "@/Components/Forms/FormContainer";
 import FormTitle from "@/Components/Forms/FormTitle";
-import { setSupervisorData } from "@/app/redux/features/supervisor-slice";
 import { useLogIn } from "@/utils/Auth/auth-actions";
 import { decodeToken } from "@/utils/Auth/auth-util";
 import api from "@/utils/api";
 import { getErrorMessage } from "@/utils/error-util";
-import {
-  companyLowProfilePicture,
-  studentLowProfilePicture,
-} from "@/utils/firebase/FirebaseImageUrls";
-import { useSetStudentData } from "@/utils/student/student-actions";
-import { Alert, Button, Divider, Form, Input, message } from "antd";
+import { companyLowProfilePicture } from "@/utils/firebase/FirebaseImageUrls";
+import { useSetSupervisorData } from "@/utils/supervisor/supervisor-actions";
+import { Alert, Button, Form, Input, message } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -23,9 +19,9 @@ const SupervisorSignIn = () => {
   const router = useRouter();
 
   const logIn = useLogIn();
-  const setStudentData = useSetStudentData();
+  const setSupervisorData = useSetSupervisorData();
 
-  const signStudent = async () => {
+  const signSupervisor = async () => {
     form.validateFields().then(async (values) => {
       try {
         await api
@@ -35,25 +31,29 @@ const SupervisorSignIn = () => {
           })
           .then((response) => {
             const decodedToken = decodeToken(response.token);
+            console.log(response);
+
             setSupervisorData(
-              response.supervisorId,
+              response.userId,
               response.companyId,
-              `${response.firstName} ${response.lastName}`
+              `${response.firstName} ${response.lastName}`,
+              response.facultyId
             );
 
             logIn(
               response.token,
               response.userId,
               decodedToken.exp,
-              true,
               false,
-              response.profilePicFirebaseId
-                ? companyLowProfilePicture(response.profilePicFirebaseId)
+              false,
+              true,
+              response.companyLogoFirebaseId
+                ? companyLowProfilePicture(response.companyLogoFirebaseId)
                 : null
             );
 
             message.success("Sign In successful!");
-            router.push("/students/internships");
+            router.push("/supervisors/interns");
           });
       } catch (error) {
         const errorMessage = getErrorMessage(error);
@@ -75,12 +75,12 @@ const SupervisorSignIn = () => {
         form={form}
         className="bg-white p-4 rounded-md font-default px-6 max-w-md shadow-md min-w-96"
         layout="vertical"
-        onFinish={signStudent}
+        onFinish={signSupervisor}
       >
         <FormTitle
           description={"Enter your information to Sign in!"}
           title={"Sign In"}
-          subTitle={"Student"}
+          subTitle={"Supervisor"}
           className="mb-4"
         />
 
@@ -155,7 +155,7 @@ const SupervisorSignIn = () => {
           Forgot password? <Link href={"/test"}>Click here</Link>
         </p>
 
-        <Divider plain className=" !font-default !my-2">
+        {/* <Divider plain className=" !font-default !my-2">
           or
         </Divider>
 
@@ -172,7 +172,7 @@ const SupervisorSignIn = () => {
           >
             Sign in as a company
           </Link>
-        </div>
+        </div> */}
       </Form>
     </FormContainer>
   );

@@ -272,7 +272,7 @@ const DailyDiary = () => {
                   </Button>
                 )}
               {dailyDiary.coordinatorApprovalStatus == 0 &&
-                dailyDiary.supervisorApprovalStatus == 1 && (
+                dailyDiary.supervisorApprovalStatus == 2 && (
                   <Button
                     type="primary"
                     className="w-min text-base"

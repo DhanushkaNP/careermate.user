@@ -8,12 +8,13 @@ import { useDispatch } from "react-redux";
 
 export const useSetSupervisorData = () => {
   const dispatch = useDispatch();
-  return (id, companyId, fullName) => {
+  return (id, companyId, fullName, facultyId) => {
     dispatch(
       setSupervisorData({
         id,
         companyId,
         fullName,
+        facultyId,
       })
     );
   };

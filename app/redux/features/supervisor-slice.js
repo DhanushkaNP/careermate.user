@@ -5,6 +5,7 @@ const initialState = {
     id: null,
     companyId: null,
     fullName: null,
+    facultyId: null,
   },
 };
 
@@ -18,14 +19,16 @@ export const supervisor = createSlice({
     },
 
     setSupervisorData: (state, action) => {
-      const { id, companyId, fullName } = action.payload;
+      const { id, companyId, fullName, facultyId } = action.payload;
       localStorage.removeItem("supervisorData");
+
       localStorage.setItem(
         "supervisorData",
         JSON.stringify({
           id,
           companyId,
           fullName,
+          facultyId,
         })
       );
       return {
@@ -33,6 +36,7 @@ export const supervisor = createSlice({
           id,
           companyId,
           fullName,
+          facultyId,
         },
       };
     },
