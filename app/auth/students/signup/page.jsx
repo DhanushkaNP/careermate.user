@@ -706,7 +706,6 @@ const StudentSignup = () => {
               <Button
                 type="primary"
                 htmlType="submit"
-                block
                 className="mb-2 font-semibold"
               >
                 Sign Up
