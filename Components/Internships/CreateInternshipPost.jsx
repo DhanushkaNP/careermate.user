@@ -89,7 +89,7 @@ const CreateInternshipPost = ({
   return (
     <div className="font-default text-dark-blue">
       <div className="flex justify-center mt-4">
-        <div className="!w-7/12 shadow p-6 bg-white rounded">
+        <Card className="!w-7/12 shadow">
           <Form
             form={form}
             layout="vertical"
@@ -264,7 +264,7 @@ const CreateInternshipPost = ({
               </Button>
             </div>
           </Form>
-        </div>
+        </Card>
       </div>
     </div>
   );
