@@ -26,9 +26,7 @@ const CreateFormModal = ({
       } catch (err) {
         console.log(err);
         const errorMessage = getErrorMessage(err);
-        console.log(errorMessage);
         setError(errorMessage.message);
-        console.log(error.message);
         return;
       }
     });

@@ -60,86 +60,84 @@ const StudentCertifications = ({ editable, studentId }) => {
   }, [isLoading, studentId]);
 
   return (
-    certifications.length > 0 && (
-      <>
-        {editable && isCreateModalVisible && (
-          <CreateFormModal
-            open={isCreateModalVisible}
-            onCancel={() => setIsCreateModalVisible(false)}
-            title="Add license & certifications"
-            onCreate={onAddCertification}
+    <>
+      {editable && isCreateModalVisible && (
+        <CreateFormModal
+          open={isCreateModalVisible}
+          onCancel={() => setIsCreateModalVisible(false)}
+          title="Add license & certifications"
+          onCreate={onAddCertification}
+        >
+          <Form.Item
+            label={
+              <span className="font-default text-dark-dark-blue font-bold">
+                Name
+              </span>
+            }
+            name={"name"}
+            rules={[{ required: true, message: "Please input a name!" }]}
           >
-            <Form.Item
-              label={
-                <span className="font-default text-dark-dark-blue font-bold">
-                  Name
-                </span>
-              }
-              name={"name"}
-              rules={[{ required: true, message: "Please input a name!" }]}
-            >
-              <Input className="font-default font-normal text-dark-dark-blue" />
-            </Form.Item>
+            <Input className="font-default font-normal text-dark-dark-blue" />
+          </Form.Item>
 
-            <Form.Item
-              label={
-                <span className="font-default text-dark-dark-blue font-bold">
-                  Issuing Organization
-                </span>
-              }
-              name={"organization"}
-              rules={[
-                { required: true, message: "Please input a organization!" },
-              ]}
-            >
-              <Input className="font-default font-normal text-dark-dark-blue" />
-            </Form.Item>
+          <Form.Item
+            label={
+              <span className="font-default text-dark-dark-blue font-bold">
+                Issuing Organization
+              </span>
+            }
+            name={"organization"}
+            rules={[
+              { required: true, message: "Please input a organization!" },
+            ]}
+          >
+            <Input className="font-default font-normal text-dark-dark-blue" />
+          </Form.Item>
 
-            <Form.Item
-              label={
-                <span className="font-default text-dark-dark-blue font-bold">
-                  Issued Month
-                </span>
-              }
-              name={"issuedMonth"}
-              rules={[
-                { required: true, message: "Please input a issued month!" },
-              ]}
-            >
-              <DatePicker picker="month" size="large" />
-            </Form.Item>
-          </CreateFormModal>
-        )}
+          <Form.Item
+            label={
+              <span className="font-default text-dark-dark-blue font-bold">
+                Issued Month
+              </span>
+            }
+            name={"issuedMonth"}
+            rules={[
+              { required: true, message: "Please input a issued month!" },
+            ]}
+          >
+            <DatePicker picker="month" size="large" />
+          </Form.Item>
+        </CreateFormModal>
+      )}
 
-        <div className="bg-white shadow rounded-md pt-4 ps-4 pe-4 pb-1 font-default max-w-4xl mt-2">
-          <div className="flex justify-between">
-            <h5 className="font-bold text-base mb-2">
-              Licenses & Certifications{" "}
-            </h5>{" "}
-            {editable && (
-              <PlusOutlined
-                onClick={() => setIsCreateModalVisible(true)}
-                className=" hover:cursor-pointer hover:text-light-blue"
-              />
-            )}
-          </div>
-
-          <div>
-            {certifications.map((certification) => (
-              <StudentCertificationItem
-                key={certification.id}
-                id={certification.id}
-                name={certification.name}
-                issuingOrganization={certification.organization}
-                issueMonth={certification.issuedMonth}
-                onDelete={onDeleteCertification}
-                editable={editable}
-              />
-            ))}
-          </div>
+      <div className="bg-white shadow rounded-md pt-4 ps-4 pe-4 pb-1 font-default max-w-4xl mt-2">
+        <div className="flex justify-between">
+          <h5 className="font-bold text-base mb-2">
+            Licenses & Certifications{" "}
+          </h5>{" "}
+          {editable && (
+            <PlusOutlined
+              onClick={() => setIsCreateModalVisible(true)}
+              className=" hover:cursor-pointer hover:text-light-blue"
+            />
+          )}
         </div>
-      </>
-    )
+
+        <div>
+          {certifications.map((certification) => (
+            <StudentCertificationItem
+              key={certification.id}
+              id={certification.id}
+              name={certification.name}
+              issuingOrganization={certification.organization}
+              issueMonth={certification.issuedMonth}
+              onDelete={onDeleteCertification}
+              editable={editable}
+            />
+          ))}
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -69,98 +69,96 @@ const StudentExperiences = ({ editable, studentId }) => {
   }, [studentId, isLoading]);
 
   return (
-    experiences.length > 0 && (
-      <>
-        {editable && isCreateModalVisible && (
-          <CreateFormModal
-            open={isCreateModalVisible}
-            onCancel={() => setIsCreateModalVisible(false)}
-            title={"Add Experience"}
-            onCreate={onAddExperience}
+    <>
+      {editable && isCreateModalVisible && (
+        <CreateFormModal
+          open={isCreateModalVisible}
+          onCancel={() => setIsCreateModalVisible(false)}
+          title={"Add Experience"}
+          onCreate={onAddExperience}
+        >
+          <Form.Item
+            label={
+              <span className="font-default text-dark-dark-blue font-bold">
+                Title
+              </span>
+            }
+            name={"title"}
+            rules={[{ required: true, message: "Please input a title!" }]}
           >
-            <Form.Item
-              label={
-                <span className="font-default text-dark-dark-blue font-bold">
-                  Title
-                </span>
-              }
-              name={"title"}
-              rules={[{ required: true, message: "Please input a title!" }]}
-            >
-              <Input className="font-default font-normal text-dark-dark-blue" />
-            </Form.Item>
+            <Input className="font-default font-normal text-dark-dark-blue" />
+          </Form.Item>
 
-            <Form.Item
-              label={
-                <span className="font-default text-dark-dark-blue font-bold">
-                  Company name
-                </span>
-              }
-              name={"company"}
-              rules={[{ required: true, message: "Please input a company!" }]}
-            >
-              <Input className="font-default font-normal text-dark-dark-blue" />
-            </Form.Item>
+          <Form.Item
+            label={
+              <span className="font-default text-dark-dark-blue font-bold">
+                Company name
+              </span>
+            }
+            name={"company"}
+            rules={[{ required: true, message: "Please input a company!" }]}
+          >
+            <Input className="font-default font-normal text-dark-dark-blue" />
+          </Form.Item>
 
-            <Form.Item
-              label={
-                <span className="font-default text-dark-dark-blue font-bold">
-                  Employment type
-                </span>
-              }
-              name={"type"}
-              rules={[
-                { required: true, message: "Please select a employment type!" },
-              ]}
-            >
-              <Select placeholder="Hybrid" notFoundContent={null} allowClear>
-                {Object.entries(employmentTypes).map(([key, value]) => (
-                  <Select.Option key={key} value={key}>
-                    {value}
-                  </Select.Option>
-                ))}
-              </Select>
-            </Form.Item>
+          <Form.Item
+            label={
+              <span className="font-default text-dark-dark-blue font-bold">
+                Employment type
+              </span>
+            }
+            name={"type"}
+            rules={[
+              { required: true, message: "Please select a employment type!" },
+            ]}
+          >
+            <Select placeholder="Hybrid" notFoundContent={null} allowClear>
+              {Object.entries(employmentTypes).map(([key, value]) => (
+                <Select.Option key={key} value={key}>
+                  {value}
+                </Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
 
-            <Form.Item
-              label={
-                <span className="font-default text-dark-dark-blue font-bold">
-                  Time
-                </span>
-              }
-              name={"time"}
-              rules={[
-                { required: true, message: "Please select a employment type!" },
-              ]}
-            >
-              <RangePicker picker="month" className="w-full" />
-            </Form.Item>
-          </CreateFormModal>
-        )}
+          <Form.Item
+            label={
+              <span className="font-default text-dark-dark-blue font-bold">
+                Time
+              </span>
+            }
+            name={"time"}
+            rules={[
+              { required: true, message: "Please select a employment type!" },
+            ]}
+          >
+            <RangePicker picker="month" className="w-full" />
+          </Form.Item>
+        </CreateFormModal>
+      )}
 
-        <div className="bg-white shadow rounded-md pt-4 ps-4 pe-4 pb-1 font-default max-w-4xl mt-2">
-          <div className="flex justify-between">
-            <h5 className="font-bold text-base mb-2">Experience</h5>
-            {editable && (
-              <PlusOutlined
-                className=" hover:cursor-pointer hover:text-light-blue text-lg"
-                onClick={() => {
-                  setIsCreateModalVisible(true);
-                }}
-              />
-            )}
-          </div>
-
-          {experiences.map((experience) => (
-            <StudentExperienceItem
-              key={experience.id}
-              {...experience}
-              ondelete={onDeleteExperience}
+      <div className="bg-white shadow rounded-md pt-4 ps-4 pe-4 pb-1 font-default max-w-4xl mt-2">
+        <div className="flex justify-between">
+          <h5 className="font-bold text-base mb-2">Experience</h5>
+          {editable && (
+            <PlusOutlined
+              className=" hover:cursor-pointer hover:text-light-blue text-lg"
+              onClick={() => {
+                setIsCreateModalVisible(true);
+              }}
             />
-          ))}
+          )}
         </div>
-      </>
-    )
+
+        {experiences.map((experience) => (
+          <StudentExperienceItem
+            key={experience.id}
+            {...experience}
+            ondelete={onDeleteExperience}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 

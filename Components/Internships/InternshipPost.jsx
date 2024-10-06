@@ -171,7 +171,7 @@ const InternshipPost = ({ showDelete, showApply, facultyId }) => {
 
               {isIntern && (
                 <Button disabled type="primary" className="px-10 font-semibold">
-                  Can't apply
+                  Can&apost apply
                 </Button>
               )}
             </div>

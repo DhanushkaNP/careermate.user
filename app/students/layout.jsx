@@ -122,8 +122,8 @@ const StudentLayout = ({ children }) => {
         {
           key: "1.3",
           label: (
-            <Link href="/test2" className="font-default">
-              Recruitation Invites
+            <Link href="/students/internship-offers" className="font-default">
+              Internship offers
             </Link>
           ),
         },

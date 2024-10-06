@@ -46,6 +46,11 @@ export const getErrorMessage = (error) => {
           message: "You are already an intern.",
         };
 
+      case ErrorCodes.AlreadyGaveAnOffer:
+        return {
+          message: "You already gave an offer to this student.",
+        };
+
       default:
         return {
           message: error.response.data.Message,
