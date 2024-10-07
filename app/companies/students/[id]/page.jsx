@@ -308,7 +308,7 @@ const CompanyStudentProfile = () => {
                         <div className="flex gap-2 text-light-blue items-center text-sm">
                           <LinkOutlined className=" text-dark-gray" />
                           <p
-                            href={`http://localhost:62200/api/Faculties/${facultyId}/Student/${id}/CV`}
+                            href={`${process.env.NEXT_PUBLIC_BACKEND_API}/Faculties/${facultyId}/Student/${id}/CV`}
                             className=" underline hover:cursor-pointer"
                             onClick={downloadCv}
                           >
