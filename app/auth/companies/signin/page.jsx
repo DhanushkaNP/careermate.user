@@ -288,9 +288,9 @@ const CompanySignIn = () => {
           Sign In
         </Button>
 
-        <p className=" mt-4">
+        {/* <p className=" mt-4">
           Forgot password? <Link href={"/test"}>Click here</Link>
-        </p>
+        </p> */}
 
         <Divider plain className=" !font-default !my-2">
           or
